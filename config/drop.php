@@ -12,5 +12,6 @@
 	catch (PDOException $e)
 	{
 		$sql . "<br>" . $e->getMessage();
+		die(-1);
 	}
 ?>
