@@ -1,18 +1,72 @@
+body {
+	background-color: #efefef;
+	font-family: 'Montserrat', sans-serif;
+}
+
 *, *::before, *::after {
 	box-sizing: border-box;
 	margin: 0;
 	padding: 0;
 }
 
-.space {
-	margin-bottom: 250px;
+.signup-wrapper {
+	width: 400px;
+	margin: 0 auto;
+	padding: 30px;
+	background-color: #fff;
+	box-shadow: 0 0 4px rgba(0,0,0,0.15);
+	border-radius: 3px;
 }
 
-.sign-form {
-	width: 540px;
-	margin: 0 auto;
+.signup-heading {
+	text-align: center;
+	color: #2CA8FF;
+	font-weight: bold;
+	text-transform: uppercase;
+	margin-bottom: 50px;
+}
+
+.signup-input {
+	display: block;
+	width: 100%;
+	margin: 20px 0;
+	height: 35px;
+	padding: 6px 12px;
+	font-size: 14px;
+	color: #555;
 	border: 1px solid #ccc;
-	padding: 60px 30px;
+	border-radius: 3px;
+}
+
+.signup-login {
+	font-size: 14px;
+	text-align: right;
+}
+
+.btn-signup {
+	display: inline-block;
+	padding: 6px 12px;
+	margin-bottom: 10px;
+	width: 160px;
+	background-color: #2CA8FF;
+	border: 1px solid transparent;
+	color: #fff;
+	font-size: 14px;
+	font-weight: lighter;
+	text-align: center;
+	border-radius: 3px;
+}
+
+
+
+
+
+
+
+
+/*   delete style when complete with project   */
+.space {
+	margin-bottom: 100px;
 }
 
 .well {
