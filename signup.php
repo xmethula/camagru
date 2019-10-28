@@ -11,6 +11,17 @@
 </head>
 <body>
 	<div class="space"></div>
+	<?php	if (isset($_GET['error'])) : ?>
+		<?php $errMessage = $_GET['error']; ?>
+			<?php if ($errMessage == "username") : ?>
+				<div class="err-block">
+					<ul><li>Username must contain only letters and numbers!</li></ul>
+					<ul><li>Username must contain a minimum of 3 characters!</li></ul>
+					<ul><li>Username must contain a maximum of 16 characters!</li></ul>
+				</div>
+			<?php endif; ?>
+	<?php endif; ?>
+
 
 	<div class="signup-wrapper">
 		<h2 class="signup-heading">SignUp</h2>
