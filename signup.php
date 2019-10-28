@@ -14,7 +14,7 @@
 
 	<div class="signup-wrapper">
 		<h2 class="signup-heading">SignUp</h2>
-		<form action="get_signup.php" autocomplete="off" method="POST">
+		<form action="includes/signup.inc.php" autocomplete="off" method="POST">
 			<input class="signup-input" type="text" name="username" placeholder="username">
 			<input class="signup-input" type="email" name="email" placeholder="email-address">
 			<input class="signup-input" type="password" name="password" placeholder="password">
