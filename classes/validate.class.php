@@ -1,41 +1,33 @@
 <?php
-	class Validate {
+	class UserValidator {
 
-		private $username;
-		private $email;
-		private $password;
-		private $confirm;
-
-		public function __construct($username, $email, $password, $confirm) {
-			$this->username = $username;
-			$this->email = $email;
-			$this->password = $password;
-			$this->confirm = $confirm;
+		public function validateUsername($username)
+		{
+			if (!preg_match('/^[a-zA-Z0-9]{6,16}$/', $username))
+				return true;
+			return false;
 		}
 
-		public function empty() {
-			if (empty($this->username) || empty($this->email) || empty($this->password) || empty($this->confirm))
-				header("Location: ../signup.php?error=empty&username=$this->username&email=$this->email");
+		public function validateEamil($email)
+		{
+			if (!filter_var($email, FILTER_VALIDATE_EMAIL))
+				return true;
+			return false;
 		}
 
-		public function valUsername() {
-			if (!preg_match("/^[a-zA-Z]*$/", $this->username) || (strlen($this->username) < 6) || (strlen($this->username) > 15))
-				header("Location: ../signup.php?error=username&email=$this->email");
+		public function validatePassword($password)
+		{
+			if (strlen($password) < 6 || strlen($password) > 16)
+				return true;
+			return false;
 		}
 
-		public function valEmail() {
-			if (!filter_var($this->email, FILTER_VALIDATE_EMAIL))
-				header("Location: ../signup.php?error=email&username=$this->username");
+		public function validateConfirm($password, $confirm)
+		{
+			if ($password !== $confirm)
+				return true;
+			return false;
 		}
 
-		public function valPassword() {
-			if (strlen($this->password) < 6 || strlen($this->password) > 16)
-				header("Location: ../signup.php?error=password&username=$this->username&email=$this->email");
-		}
-
-		public function valConfirm() {
-			if ($this->password !== $this->confirm)
-				header("Location: ../signup.php?error=confirm&username=$this->username&email=$this->email");
-		}
 	}
 ?>
