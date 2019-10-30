@@ -25,8 +25,8 @@
 		$sql = "CREATE TABLE IF NOT EXISTS users (
 			id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
 			username VARCHAR(50) UNIQUE NOT NULL,
-			mail VARCHAR(50) UNIQUE NOT NULL,
-			pass VARCHAR(255) NOT NULL,
+			email VARCHAR(50) UNIQUE NOT NULL,
+			`password` VARCHAR(255) NOT NULL,
 			verified INT(1) NOT NULL DEFAULT 0
 		)";
 		$conn->exec($sql);

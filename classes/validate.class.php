@@ -1,5 +1,15 @@
 <?php
-	class UserValidator {
+	class Validate {
+
+		public function isEmpty($global_data)
+		{
+			foreach ($global_data as $data)
+			{
+				if (empty($data))
+					return true;
+			}
+			return false;
+		}
 
 		public function validateUsername($username)
 		{
