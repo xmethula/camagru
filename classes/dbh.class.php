@@ -9,13 +9,11 @@
 			{
 				$conn = new PDO($GLOBALS['DB_DSN'], $GLOBALS['DB_USER'], $GLOBALS['DB_PASSWORD']);
 				$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-				//echo "Connected to database successfully!";
 				return $conn;
 			}
 			catch (PDOException $error)
 			{
 				echo "Connection failed: " . $error->getMessage();
-				exit();
 			}
 		}
 
@@ -54,6 +52,26 @@
 			catch (PDOException $error)
 			{
 				echo "Error: " . $error->getMessage();
+			}
+		}
+
+		//insert user into database
+		public function signupUser($username, $email, $password)
+		{
+			$password = password_hash($password, PASSWORD_DEFAULT);
+			try
+			{
+				$conn = $this->connect();
+				$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+				$stmt = $conn->prepare("INSERT INTO users (username, email, passcode) VALUE (:username, :email, :passcode)");
+				$stmt->bindParam(':username', $username);
+				$stmt->bindParam(':email', $email);
+				$stmt->bindParam(':passcode', $password);
+				$stmt->execute();
+			}
+			catch (PDOException $error)
+			{
+				//echo "Error: " . $error->getMessage();
 			}
 		}
 	}

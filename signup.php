@@ -17,6 +17,12 @@
 		$ifExist = new Dbh();
 		$existUsername = $ifExist->existUsername($_POST['username']);
 		$existEmail = $ifExist->existEmail($_POST['email']);
+		if ($empty == false && $username == false && $email == false && $password == false &&
+			$confirm == false && $existUsername == false && $existEmail == false)
+		{
+			$ifExist->signupUser($_POST['username'], $_POST['email'], $_POST['password']);
+			echo "Signup was successful!";
+		}
 	}
 ?>
 
