@@ -13,7 +13,7 @@
 			}
 			catch (PDOException $error)
 			{
-				echo "Connection failed: " . $error->getMessage();
+				//echo "Connection failed: " . $error->getMessage();
 			}
 		}
 
@@ -32,7 +32,7 @@
 			}
 			catch (PDOException $error)
 			{
-				echo "Error: " . $error->getMessage();
+				//echo "Error: " . $error->getMessage();
 			}
 		}
 
@@ -51,7 +51,7 @@
 			}
 			catch (PDOException $error)
 			{
-				echo "Error: " . $error->getMessage();
+				//echo "Error: " . $error->getMessage();
 			}
 		}
 
@@ -68,6 +68,32 @@
 				$stmt->bindParam(':email', $email);
 				$stmt->bindParam(':passcode', $password);
 				$stmt->execute();
+			}
+			catch (PDOException $error)
+			{
+				//echo "Error: " . $error->getMessage();
+			}
+		}
+
+		public function signinUser($username, $password)
+		{
+			try
+			{
+				$conn = $this->connect();
+				$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+				$stmt = $conn->prepare("SELECT * FROM users WHERE username=?");
+				$stmt->execute([$username]);
+				if ($stmt->rowCount())
+				{
+					$row = $stmt->fetch(PDO::FETCH_ASSOC);
+					$checkPassword = password_verify($password, $row['passcode']);
+					if ($checkPassword)
+					{
+						$_SESSION['userId'] = $row['id'];
+						return true;
+					}
+				}
+				return false;
 			}
 			catch (PDOException $error)
 			{

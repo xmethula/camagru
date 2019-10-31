@@ -1,6 +1,8 @@
 <?php
-	/*error_reporting(E_ALL);
-	ini_set("display_errors","On");*/
+	session_start();
+
+	if ($_SESSION['userId'])
+		header("Location: index.php");
 
 	require_once 'classes/validate.class.php';
 	require_once 'classes/dbh.class.php';
@@ -48,10 +50,10 @@
 			</div>
 
 		<?php elseif ($username) : ?>
-		<div class="err-block">
-			<ul><li>Username must contain only letters and numbers!</li></ul>
-			<ul><li>Username must be between 6 to 16 characters!</li></ul>
-		</div>
+			<div class="err-block">
+				<ul><li>Username must contain only letters and numbers!</li></ul>
+				<ul><li>Username must be between 6 to 16 characters!</li></ul>
+			</div>
 
 		<?php elseif ($email) : ?>
 			<div class="err-block">
