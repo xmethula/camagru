@@ -56,17 +56,18 @@
 		}
 
 		//insert user into database
-		public function signupUser($username, $email, $password)
+		public function signupUser($username, $email, $password, $token)
 		{
 			$password = password_hash($password, PASSWORD_DEFAULT);
 			try
 			{
 				$conn = $this->connect();
 				$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-				$stmt = $conn->prepare("INSERT INTO users (username, email, passcode) VALUE (:username, :email, :passcode)");
+				$stmt = $conn->prepare("INSERT INTO users (username, email, passcode, token) VALUE (:username, :email, :passcode, :token)");
 				$stmt->bindParam(':username', $username);
 				$stmt->bindParam(':email', $email);
 				$stmt->bindParam(':passcode', $password);
+				$stmt->bindParam(':token', $token);
 				$stmt->execute();
 			}
 			catch (PDOException $error)

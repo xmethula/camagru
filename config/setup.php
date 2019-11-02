@@ -27,6 +27,7 @@
 			username VARCHAR(50) UNIQUE NOT NULL,
 			email VARCHAR(50) UNIQUE NOT NULL,
 			passcode VARCHAR(255) NOT NULL,
+			token VARCHAR(255) NOT NULL,
 			verified INT(1) NOT NULL DEFAULT 0
 		)";
 		$conn->exec($sql);

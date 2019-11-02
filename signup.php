@@ -22,8 +22,21 @@
 		if ($empty == false && $username == false && $email == false && $password == false &&
 			$confirm == false && $existUsername == false && $existEmail == false)
 		{
-			$ifExist->signupUser($_POST['username'], $_POST['email'], $_POST['password']);
-			echo "Signup was successful!";
+			//create a token by hashing a combination of the current time and the email of the user
+			$token = password_hash(time() .$_POST['email'], PASSWORD_DEFAULT);
+			$ifExist->signupUser($_POST['username'], $_POST['email'], $_POST['password'], $token);
+
+			//send verification email and redirect to thank you page
+			$to = $_POST['email'];
+			$subject = "Email verification";
+			$message = " Congratulations, you are now registered!!
+
+			Please click on the link below to activate your account
+
+			http://localhost:8080/camagru/verify.php?token=$token";
+			$headers = "From: admin@camagru.co.za \r\n";
+			mail($to, $subject, $message, $headers);
+			header("Location: thankyou.php");
 		}
 	}
 ?>
