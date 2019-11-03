@@ -2,7 +2,7 @@
 	session_start();
 
 	if ($_SESSION['userId'])
-		header("Location: index.php");
+		header("Location: profile.php");
 
 	require_once 'classes/validate.class.php';
 	require_once 'classes/dbh.class.php';

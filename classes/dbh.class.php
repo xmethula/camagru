@@ -88,17 +88,58 @@
 				{
 					$row = $stmt->fetch(PDO::FETCH_ASSOC);
 					$checkPassword = password_verify($password, $row['passcode']);
-					if ($checkPassword)
+					$verified = $row['verified'];
+					if ($checkPassword && $verified == 1)
 					{
 						$_SESSION['userId'] = $row['id'];
-						return true;
+						return 2;
+					}
+					else
+					{
+						return 1;
 					}
 				}
+				return 0;
+			}
+			catch (PDOException $error)
+			{
+				//echo "Error: " . $error->getMessage();
+			}
+		}
+
+		public function verifyEmail($token)
+		{
+			try
+			{
+				$conn = $this->connect();
+				$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+				$stmt = $conn->prepare("SELECT token, verified FROM users WHERE token=? AND verified=?");
+				$stmt->execute([$token, 0]);
+				if ($stmt->rowCount())
+					return true;
 				return false;
 			}
 			catch (PDOException $error)
 			{
 				//echo "Error: " . $error->getMessage();
+			}
+		}
+
+		public function activateAcc($token)
+		{
+			try
+			{
+				$conn = $this->connect();
+				$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+				$stmt = $conn->prepare("UPDATE users SET verified=? WHERE token=?");
+				$stmt->execute([1, $token]);
+				if ($stmt->rowCount())
+					return true;
+				return false;
+			}
+			catch (PDOException $error)
+			{
+				echo "Error: " . $error->getMessage();
 			}
 		}
 	}

@@ -2,6 +2,9 @@
 	session_start();
 
 	if ($_SESSION['userId'])
+		header("Location: profile.php");
+
+	if ($_SESSION['userId'])
 		header("Location: index.php");
 
 	require_once 'classes/validate.class.php';
@@ -16,7 +19,7 @@
 		{
 			$check = new Dbh();
 			$signin = $check->signinUser($_POST['username'], $_POST['password']);
-			if ($signin)
+			if ($signin == 2)
 				header("Location: profile.php");
 		}
 	}
@@ -42,9 +45,14 @@
 				<ul><li>Please fill in all the fields!</li></ul>
 			</div>
 
-		<?php elseif ($signin == false) : ?>
+		<?php elseif ($signin == 0) : ?>
 			<div class="err-block">
 				<ul><li>Username and password combination does'nt exist!</li></ul>
+			</div>
+
+		<?php elseif ($signin == 1) : ?>
+			<div class="err-block">
+				<ul><li>Please activate your account!</li></ul>
 			</div>
 		<?php endif ?>
 	<?php endif; ?>
