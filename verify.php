@@ -1,6 +1,6 @@
 <?php
 	require_once 'classes/dbh.class.php';
-	
+
 	if (isset($_GET['token']))
 	{
 		$verify = new Dbh();
@@ -12,6 +12,8 @@
 				$errorMsg = "You account has been activated. You may now signin!";
 				echo $errorMsg;
 			}
+			//delete token
+			$verify->deleteToken($_GET['token']);
 		}
 		else
 		{

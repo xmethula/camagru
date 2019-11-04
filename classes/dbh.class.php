@@ -142,5 +142,20 @@
 				echo "Error: " . $error->getMessage();
 			}
 		}
+
+		public function deleteToken($token)
+		{
+			try
+			{
+				$conn = $this->connect();
+				$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+				$stmt = $conn->prepare("UPDATE users SET token=? WHERE token=?");
+				$stmt->execute(['', $token]);
+			}
+			catch (PDOException $error)
+			{
+				echo "Error: " . $error->getMessage();
+			}
+		}
 	}
 ?>

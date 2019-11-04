@@ -64,7 +64,7 @@
 			<input class="signup-input" type="password" name="password" placeholder="password">
 			<a class="signup-login" href="signup.php"><p>create an account</p></a>
 			<button class="btn-signup" type="submit" name="signin-submit" value="SIGNIN">SIGNIN</button>
-			<a class="reset-pass" href="resetpassword.php"><p>reset password</p></a>
+			<a class="reset-pass" href="reset-password.php"><p>reset password</p></a>
 		</form>
 	</div>
 </body>
