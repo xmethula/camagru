@@ -2,15 +2,30 @@
 	require_once 'classes/validate.class.php';
 	require_once 'classes/dbh.class.php';
 
+	$token = $_GET['token'];
+
 	if (isset($_POST['reset-password']))
 	{
+		$errMessage = NULL;
+		$password = $_POST['password'];
+		$confirm = $_POST['confirm'];
+
 		$validate = new Validate();
+		$dbh = new Dbh();
+
 		if ($validate->isEmpty($_POST))
 			$errMessage = "<ul><li>Please fill in all the fields!</li></ul>";
-		elseif ($validate->validatePassword($_POST['password']))
+		elseif ($validate->validatePassword($password))
 			$errMessage = "<ul><li>Password must be between 6 to 16 characters!</li></ul>";
-		elseif ($validate->validateConfirm($_POST['password'], $_POST['confirm']))
+		elseif ($validate->validateConfirm($password, $confirm))
 			$errMessage = "<ul><li>Password do not match!</li></ul>";
+		elseif ($errMessage == NULL)
+		{
+			if ($dbh->resetPassword($password, $token))
+				$errMessage = "<ul><li>Your password has been reset successfully!</li></ul>";
+			else
+				$errMessage = "<ul><li>An error has occured!</li></ul>";
+		}
 	}
 ?>
 

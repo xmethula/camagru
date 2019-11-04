@@ -4,25 +4,38 @@
 	if ($_SESSION['userId'])
 		header("Location: profile.php");
 
-	if ($_SESSION['userId'])
-		header("Location: index.php");
-
 	require_once 'classes/validate.class.php';
 	require_once 'classes/dbh.class.php';
 
 	if(isset($_POST['signin-submit']))
 	{
-		$validate = new Validate();
-		$empty = $validate->isEmpty($_POST);
+		$errMessage = NULL;
 
-		if ($empty == false)
+		$username = $_POST['username'];
+		$password = $_POST['password'];
+
+		$validate = new Validate();
+		$dbh = new Dbh();
+
+		if ($validate->isEmpty($_POST))
+			$errMessage = "<ul><li>Please fill in all the fields!</li></ul>";
+		elseif ($errMessage == NULL)
 		{
-			$check = new Dbh();
-			$signin = $check->signinUser($_POST['username'], $_POST['password']);
-			if ($signin == 2)
+			$signin = $dbh->signinUser($username, $password);
+			if ($signin == 0)
+				$errMessage = "<ul><li>Username and password combination does'nt exist!</li></ul>";
+			elseif ($signin == 1)
+				$errMessage = "<ul><li>Please activate your account!</li></ul>";
+			elseif ($signin == 2)
 				header("Location: profile.php");
 		}
 	}
+	if (isset($_GET['message']))
+	{
+		$message = $_GET['message'];
+		$errMessage = "<ul><li>$message</li></ul>";
+	}
+
 ?>
 
 <!DOCTYPE html>
@@ -39,22 +52,10 @@
 <body>
 	<div class="space"></div>
 
-	<?php if (isset($_POST['signin-submit'])) : ?>
-		<?php if ($empty) : ?><!--error block-->
-			<div class="err-block">
-				<ul><li>Please fill in all the fields!</li></ul>
-			</div>
-
-		<?php elseif ($signin == 0) : ?>
-			<div class="err-block">
-				<ul><li>Username and password combination does'nt exist!</li></ul>
-			</div>
-
-		<?php elseif ($signin == 1) : ?>
-			<div class="err-block">
-				<ul><li>Please activate your account!</li></ul>
-			</div>
-		<?php endif ?>
+	<?php if ($errMessage) : ?>
+		<div class="err-block">
+			<?php echo $errMessage; ?>
+		</div>
 	<?php endif; ?>
 
 	<div class="signup-wrapper">

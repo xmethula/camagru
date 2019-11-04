@@ -5,19 +5,38 @@
 	if (isset($_POST['send-mail']))
 	{
 		$errMessage = NULL;
+		$email = $_POST['email'];
 
 		$validate = new Validate();
 		$dbh = new Dbh();
+
 		if ($validate->isEmpty($_POST))
 			$errMessage = "<ul><li>Please fill in the e-mail field!</li></ul>";
-		elseif ($validate->validateEamil($_POST['email']))
+		elseif ($validate->validateEamil($email))
 			$errMessage = "<ul><li>Email address is invalid!</li></ul>";
-		elseif ($dbh->existEmail($_POST['email']) === false)
+		elseif ($dbh->existEmail($email) === false)
 			$errMessage = "<ul><li>Email address does not exist!</li></ul>";
 		elseif ($errMessage == NULL)
 		{
 			//create a token by hashing a combination of the current time and the email of the user
-			$token = password_hash(time() .$_POST['email'], PASSWORD_DEFAULT);
+			$token = password_hash(time() .$email, PASSWORD_DEFAULT);
+			$dbh->insertToken($token);
+
+			//send email containing link to reset password
+			$to = $email;
+			$subject = "Reset your password for camagru";
+			$message = "<p>We received a password reset request. The link to reset your password is below if you did not</p>";
+			$message .= "<p>make this request, you can ignor this email. Here is your password reset link: </br></p>";
+			$message .= "<p>http://localhost:8080/camagru/create-new-password.php?token=$token</p>";
+
+			$headers = "From: camagru <admin@camagru.co.za>\r\n";
+			$headers .= "Reply-To: admin@camagru.co.za\r\n";
+			$headers .= "Content-type: text/html\r\n";
+
+			mail($to, $subject, $message, $headers);
+			
+			//succes message
+			$errMessage = "<ul><li>We have sent an e-amil containing a link to reset your password to [ $email ]</li></ul>";
 		}
 	}
 ?>

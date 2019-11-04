@@ -9,34 +9,53 @@
 
 	if (isset($_POST['signup-submit']))
 	{
-		$validate = new Validate();
-		$empty = $validate->isEmpty($_POST);
-		$username = $validate->validateUsername($_POST['username']);
-		$email = $validate->validateEamil($_POST['email']);
-		$password = $validate->validatePassword($_POST['password']);
-		$confirm = $validate->validateConfirm($_POST['password'], $_POST['confirm']);
+		$errMessage = NULL;
 
-		$ifExist = new Dbh();
-		$existUsername = $ifExist->existUsername($_POST['username']);
-		$existEmail = $ifExist->existEmail($_POST['email']);
-		if ($empty == false && $username == false && $email == false && $password == false &&
-			$confirm == false && $existUsername == false && $existEmail == false)
+		$username = $_POST['username'];
+		$email = $_POST['email'];
+		$password = $_POST['password'];
+		$confirm = $_POST['confirm'];
+
+		$validate = new Validate();
+		$dbh = new Dbh();
+
+		if ($validate->isEmpty($_POST))
+			$errMessage = "<ul><li>Please fill in all the fields!</li></ul>";
+		elseif ($validate->validateUsername($username))
+			$errMessage = "<ul><li>Username must contain only letters and numbers!</li>
+							<li>Username must be between 6 to 16 characters!</li></ul>";
+		elseif ($validate->validateEamil($email))
+			$errMessage = "<ul><li>Email address is invalid!</li></ul>";
+		elseif ($validate->validatePassword($password))
+			$errMessage = "<ul><li>Password must be between 6 to 16 characters!</li></ul>";
+		elseif ($validate->validateConfirm($password, $confirm))
+			$errMessage = "<ul><li>Password do not match!</li></ul>";
+		elseif ($dbh->existUsername($_POST['username']))
+			$errMessage = "<ul><li>Username already exist!</li></ul>";
+		elseif ($dbh->existEmail($_POST['email']))
+			$errMessage = "<ul><li>email address already exist!</li></ul>";
+		elseif ($errMessage == NULL)
 		{
 			//create a token by hashing a combination of the current time and the email of the user
-			$token = password_hash(time() .$_POST['email'], PASSWORD_DEFAULT);
-			$ifExist->signupUser($_POST['username'], $_POST['email'], $_POST['password'], $token);
+			$token = password_hash(time() .$email, PASSWORD_DEFAULT);
+			$dbh->signupUser($username, $email, $password, $token);
 
-			//send verification email and redirect to thank you page
-			$to = $_POST['email'];
-			$subject = "Email verification";
-			$message = " Congratulations, you are now registered!!
+			//send verification email
+			$to = $email;
+			$subject = "Registration for camagru";
+			$message = "<p>Congratulations, you are now registered!!!</br></p>";
+			$message .= "<p>Please click on the link below to activate your account:</br></p>";
+			$message .= "<p>http://localhost:8080/camagru/verify.php?token=$token</p>";
 
-			Please click on the link below to activate your account
+			$headers = "From: camagru <admin@camagru.co.za>\r\n";
+			$headers .= "Reply-To: admin@camagru.co.za\r\n";
+			$headers .= "Content-type: text/html\r\n";
 
-			http://localhost:8080/camagru/verify.php?token=$token";
-			$headers = "From: admin@camagru.co.za \r\n";
 			mail($to, $subject, $message, $headers);
-			header("Location: thankyou.php");
+
+			//display success message
+			$errMessage = "<ul><li>Thank you for registering. We have sent a verification e-mail to [ $email ]</li></ul>";
+
 		}
 	}
 ?>
@@ -55,44 +74,10 @@
 <body>
 	<div class="space"></div>
 
-
-	<?php if (isset($_POST['signup-submit'])) : ?>
-		<?php if ($empty) : ?><!--error block-->
-			<div class="err-block">
-				<ul><li>Please fill in all the fields!</li></ul>
-			</div>
-
-		<?php elseif ($username) : ?>
-			<div class="err-block">
-				<ul><li>Username must contain only letters and numbers!</li></ul>
-				<ul><li>Username must be between 6 to 16 characters!</li></ul>
-			</div>
-
-		<?php elseif ($email) : ?>
-			<div class="err-block">
-				<ul><li>Email address is invalid!</li></ul>
-			</div>
-
-		<?php elseif ($password) : ?>
-			<div class="err-block">
-				<ul><li>Password must be between 6 to 16 characters!</li></ul>
-			</div>
-
-		<?php elseif ($confirm) : ?>
-			<div class="err-block">
-				<ul><li>Password do not match!</li></ul>
-			</div>
-
-		<?php elseif ($existUsername) : ?>
-			<div class="err-block">
-				<ul><li>Username already exist!</li></ul>
-			</div>
-
-		<?php elseif ($existEmail) : ?>
-			<div class="err-block">
-				<ul><li>email address already exist!</li></ul>
-			</div>
-		<?php endif; ?><!--end error block-->
+	<?php if ($errMessage) : ?>
+		<div class="err-block">
+			<?php echo $errMessage; ?>
+		</div>
 	<?php endif; ?>
 
 

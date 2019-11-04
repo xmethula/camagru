@@ -157,5 +157,39 @@
 				echo "Error: " . $error->getMessage();
 			}
 		}
+
+		public function insertToken($token)
+		{
+			try
+			{
+				$conn = $this->connect();
+				$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+				$stmt = $conn->prepare("UPDATE users SET token=?");
+				$stmt->execute([$token]);
+			}
+			catch (PDOException $error)
+			{
+				echo "Error: " . $error->getMessage();
+			}
+		}
+
+		public function resetPassword($password, $token)
+		{
+			$password = password_hash($password, PASSWORD_DEFAULT);
+			try
+			{
+				$conn = $this->connect();
+				$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+				$stmt = $conn->prepare("UPDATE users SET passcode=? WHERE token=?");
+				$stmt->execute([$password, $token]);
+				if ($stmt->rowCount())
+					return true;
+				return false;
+			}
+			catch (PDOException $error)
+			{
+				echo "Error: " . $error->getMessage();
+			}
+		}
 	}
 ?>
