@@ -58,6 +58,9 @@
 
 		}
 	}
+
+	//include navbar
+	include_once 'navbar.php';
 ?>
 
 <!DOCTYPE html>
@@ -72,7 +75,6 @@
 	<link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-	<div class="space"></div>
 
 	<?php if ($errMessage) : ?>
 		<div class="err-block">

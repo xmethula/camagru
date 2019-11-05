@@ -1,4 +1,9 @@
 <?php
+	session_start();
+
+	if ($_SESSION['userId'])
+		header("Location: profile.php");
+
 	require_once 'classes/validate.class.php';
 	require_once 'classes/dbh.class.php';
 
@@ -34,11 +39,14 @@
 			$headers .= "Content-type: text/html\r\n";
 
 			mail($to, $subject, $message, $headers);
-			
+
 			//succes message
 			$errMessage = "<ul><li>We have sent an e-amil containing a link to reset your password to [ $email ]</li></ul>";
 		}
 	}
+
+	//include navbar
+	include_once 'navbar.php';
 ?>
 
 <!DOCTYPE html>
@@ -53,7 +61,6 @@
 	<link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-	<div class="space"></div>
 
 	<?php if ($errMessage) : ?>
 		<div class="err-block">

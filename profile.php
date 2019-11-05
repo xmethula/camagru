@@ -1,5 +1,11 @@
 <?php
 	session_start();
+
+	if (!$_SESSION['userId'])
+		header("Location: signin.php");
+
+	//include navbar
+	include_once 'navbar.php';
 ?>
 
 <!DOCTYPE html>
@@ -14,8 +20,6 @@
 	<link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-	<div class="space"></div>
-
 
 	<div class="profile-wrapper">
 		<div class="profile-img"></div>

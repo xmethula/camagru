@@ -1,4 +1,9 @@
 <?php
+	session_start();
+
+	if ($_SESSION['userId'])
+		header("Location: profile.php");
+
 	require_once 'classes/validate.class.php';
 	require_once 'classes/dbh.class.php';
 
@@ -27,6 +32,9 @@
 				$errMessage = "<ul><li>An error has occured!</li></ul>";
 		}
 	}
+
+	//include navbar
+	include_once 'navbar.php';
 ?>
 
 <!DOCTYPE html>
@@ -41,7 +49,6 @@
 	<link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-	<div class="space"></div>
 
 	<?php if ($errMessage) : ?>
 		<div class="err-block">
