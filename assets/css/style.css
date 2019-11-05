@@ -83,6 +83,96 @@ body {
 	margin: 2px 0;
 }
 
+.profile-wrapper {
+	width: 400px;
+	margin: 0 auto;
+	padding: 80px 30px;
+	background-color: #fff;
+	box-shadow: 0 0 4px rgba(0,0,0,0.15);
+	border-radius: 3px;
+}
+
+.profile-img {
+	width: 100px;
+	height: 100px;
+	border: 3px solid #eee;
+	border-radius: 100px;
+	background-color: #FFF;
+	margin-top: -130px;
+	margin-bottom: 40px;
+}
+
+.username {
+	font-size: 26px;
+	font-weight: bolder;
+	color: #2CA8FF;
+	text-align: center;
+}
+
+.email {
+	font-size: 14px;
+	color: #888;
+	text-align: center;
+}
+
+.line-1 {
+	width: 90%;
+	height: 1px;
+	background-color: #c4c4c4;
+	margin: 0 auto;
+	margin-bottom: 60px;
+}
+
+.statistics {
+	display: grid;
+	grid-template-columns: auto auto;
+	text-align: center;
+	justify-content: center;
+	grid-gap: 60px;
+}
+
+.num {
+	font-size: 36px;
+	font-weight: bolder;
+	color: #ccc;
+	margin: 0;
+}
+
+.text {
+	font-size: 14px;
+	font-weight: bolder;
+	color: #2CA8FF;
+	margin: 0;
+}
+
+.line-2 {
+	width: 60%;
+	height: 1px;
+	background-color: #c4c4c4;
+	margin: 20px auto;
+}
+
+.active-date {
+	font-size: 14px;
+	font-weight: bold;
+	color: #888;
+	text-align: center;
+	margin-bottom: 30px;
+}
+
+.btn-personal {
+	width: 60%;
+	margin: 0 auto;
+	border: 1px solid #2CA8FF;
+	text-align: center;
+	font-size: 14px;
+	padding: 8px 10px;
+	border-radius: 3px;
+}
+
+.profile-wrapper > a:hover{
+	text-decoration: none;
+}
 
 
 
