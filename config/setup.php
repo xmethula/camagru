@@ -23,18 +23,38 @@
 		$conn = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
 		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		$sql = "CREATE TABLE IF NOT EXISTS users (
-			id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
+			userId INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
 			username VARCHAR(50) UNIQUE NOT NULL,
 			email VARCHAR(50) UNIQUE NOT NULL,
 			passcode VARCHAR(255) NOT NULL,
 			token VARCHAR(255) NOT NULL,
-			verified INT(1) NOT NULL DEFAULT 0
+			verified INT(1) NOT NULL DEFAULT 0,
+			registerDate TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 		)";
 		$conn->exec($sql);
-		echo "Table users created successfully\n";
+		echo "Table users created successfully<br>";
 	}
 	catch (PDOException $e)
 	{
 		echo $sql . "<br>" . $e->getMessage();
 	}
+
+	// CREATE TABLE Image
+	try {
+		$conn = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
+		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		$sql = "CREATE TABLE IF NOT EXISTS images (
+			imageId INT(11) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+			userId INT(11) NOT NULL,
+			imagePath VARCHAR(100) NOT NULL,
+			postDate TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+		)";
+		$conn->exec($sql);
+		echo "Table images created successfully<br>";
+	}
+	catch (PDOException $e)
+	{
+		echo $sql . "<br>" . $e->getMessage();
+	}
+
 ?>
