@@ -5,6 +5,7 @@
 }
 
 body {
+	@import url('https://fonts.googleapis.com/css?family=Montserrat|Roboto&display=swap');
 	font-size: 16px;
 	background-color: #efefef;
 	font-family: 'Montserrat', sans-serif;
@@ -283,19 +284,56 @@ body {
 	}
 }
 
-
-
-
-
-
-
-/*   delete style when complete with project   */
-.space {
-	margin-bottom: 100px;
-}
-
 .well {
 	width: 100%;
 	height: 250px;
 	background: #ccc;
+}
+
+.pager {
+	text-align: center;
+	margin: 40px 0;
+}
+
+.pager > li {
+	display: inline;
+}
+
+.pager > li > a {
+	border: 1px solid #ddd;
+	padding: 6px 12px;
+	margin-left: -1px;
+	color: #777;
+	text-decoration: none;
+	background-color: #fff;
+}
+
+.pager > li.pager-active > a{
+	background-color: #2CA8FF;
+	color: #fff;
+}
+
+
+/**** gallery styles *****/
+.footer-wrapper {
+	width: 100%;
+	background-color: #2CA8FF;
+	padding: 30px 0;
+	text-align: center;
+	margin-top: 100px;
+}
+
+.footer-wrapper > p {
+	margin: 0;
+	color: #fff;
+	font-size: 14px;
+}
+
+.footer-wrapper > p > a {
+	color: #fff;
+}
+
+.fa-heart {
+	color: red;
+	font-size: 16px;
 }

@@ -47,7 +47,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>Signin</title>
-	<link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="assets/css/bootstrap.css">
 	<link rel="stylesheet" href="assets/css/style.css">
 </head>
@@ -69,5 +68,7 @@
 			<a class="reset-pass" href="reset-password.php"><p>reset password</p></a>
 		</form>
 	</div>
+
+	<?php include_once 'footer.php'; ?>
 </body>
 </html>

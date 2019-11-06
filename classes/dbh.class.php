@@ -191,5 +191,27 @@
 				echo "Error: " . $error->getMessage();
 			}
 		}
+
+		public function gallery()
+		{
+			try
+			{
+				$conn = $this->connect();
+				$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+				$stmt = $conn->prepare("SELECT imagePath FROM images ORDER BY postDate DESC LIMIT 6");
+				$stmt->execute();
+				$i = 0;
+				while ($row = $stmt->fetch(PDO::FETCH_ASSOC))
+				{
+					$arr[$i] = $row['imagePath'];
+					$i++;
+				}
+				return $arr;
+			}
+			catch (PDOException $error)
+			{
+				echo "Error: " . $error->getMessage();
+			}
+		}
 	}
 ?>

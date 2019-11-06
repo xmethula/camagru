@@ -70,7 +70,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>Signup</title>
-	<link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="assets/css/bootstrap.css">
 	<link rel="stylesheet" href="assets/css/style.css">
 </head>
@@ -94,5 +93,7 @@
 			<button class="btn-signup" type="submit" name="signup-submit" value="SIGNUP">SIGNUP</button>
 		</form>
 	</div>
+
+	<?php include_once 'footer.php'; ?>
 </body>
 </html>
