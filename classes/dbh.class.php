@@ -91,7 +91,7 @@
 					$verified = $row['verified'];
 					if ($checkPassword && $verified == 1)
 					{
-						$_SESSION['userId'] = $row['id'];
+						$_SESSION['userId'] = $row['userId'];
 						return 2;
 					}
 					else

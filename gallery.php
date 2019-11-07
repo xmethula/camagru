@@ -2,7 +2,7 @@
 	include_once 'navbar.php';
 	require_once 'classes/dbh.class.php';
 
-	$limit = 2;
+	$limit = 3;
 	$page = isset($_GET['page']) ? $_GET['page'] : 1;
 	$start = ($page - 1) * $limit;
 
