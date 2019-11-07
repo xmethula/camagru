@@ -308,12 +308,6 @@ body {
 	background-color: #fff;
 }
 
-.pager > li.pager-active > a{
-	background-color: #2CA8FF;
-	color: #fff;
-}
-
-
 /**** gallery styles *****/
 .footer-wrapper {
 	width: 100%;

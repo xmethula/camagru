@@ -192,21 +192,34 @@
 			}
 		}
 
-		public function gallery()
+		public function gallery($start, $limit)
 		{
 			try
 			{
 				$conn = $this->connect();
 				$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-				$stmt = $conn->prepare("SELECT imagePath FROM images ORDER BY postDate DESC LIMIT 6");
+				$stmt = $conn->prepare("SELECT imagePath FROM images ORDER BY postDate DESC LIMIT $start, $limit");
 				$stmt->execute();
-				$i = 0;
-				while ($row = $stmt->fetch(PDO::FETCH_ASSOC))
-				{
-					$arr[$i] = $row['imagePath'];
-					$i++;
-				}
-				return $arr;
+				$row = $stmt->fetchAll();
+				return $row;
+			}
+			catch (PDOException $error)
+			{
+				echo "Error: " . $error->getMessage();
+			}
+		}
+
+		public function numPages($limit)
+		{
+			try
+			{
+				$conn = $this->connect();
+				$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+				$stmt = $conn->prepare("SELECT imageId FROM images");
+				$stmt->execute();
+				$rowCount = $stmt->rowCount();
+				$numPages = ceil($rowCount / $limit);
+				return $numPages;
 			}
 			catch (PDOException $error)
 			{

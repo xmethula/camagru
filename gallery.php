@@ -1,6 +1,17 @@
 <?php
 	include_once 'navbar.php';
 	require_once 'classes/dbh.class.php';
+
+	$limit = 2;
+	$page = isset($_GET['page']) ? $_GET['page'] : 1;
+	$start = ($page - 1) * $limit;
+
+	$dbh = new Dbh();
+	$images = $dbh->gallery($start, $limit);
+	$pages = $dbh->numPages($limit);
+
+	$prev = $page - 1;
+	$next = $page + 1;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,26 +27,20 @@
 <body>
 	<h2 class="signup-heading">Gallery</h2>
 	<div class="gallery-container">
-		<?php
-			$dbh = new Dbh();
-			$images = $dbh->gallery();
-			$i = 0;
-		?>
-		<?php while ($i < count($images)) : ?>
+		<?php foreach ($images as $image) : ?>
 			<div>
-				<img class="well" src="assets/images/user/<?php echo $images[$i] ?>" alt="image">
+				<img class="well" src="assets/images/user/<?php echo $image['imagePath'] ?>" alt="image">
 			</div>
-			<?php $i++; ?>
-		<?php endwhile; ?>
+		<?php endforeach; ?>
 	</div>
 	<ul class="pager">
-		<li><a href="#">«</a></li>
-		<li><a href="#">1</a></li>
-		<li class="pager-active"><a href="#">2</a></li>
-		<li><a href="#">3</a></li>
-		<li><a href="#">...</a></li>
-		<li><a href="#">45</a></li>
-		<li><a href="#">»</a></li>
+		<li><a href="gallery.php?page=<?php echo $prev; ?>">«</a></li>
+		<?php $i = 1; ?>
+		<?php while ($i <= $pages) : ?>
+			<li><a href="gallery.php?page=<?php echo $i; ?>"><?php echo $i; ?></a></li>
+			<?php $i++; ?>
+		<?php endwhile; ?>
+		<li><a href="gallery.php?page=<?php echo $next; ?>">»</a></li>
 	</ul>
 
 	<?php include_once 'footer.php'; ?>
