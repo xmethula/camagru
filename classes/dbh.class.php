@@ -198,7 +198,7 @@
 			{
 				$conn = $this->connect();
 				$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-				$stmt = $conn->prepare("SELECT imagePath FROM images ORDER BY postDate DESC LIMIT $start, $limit");
+				$stmt = $conn->prepare("SELECT imagePath, imageId FROM images ORDER BY postDate DESC LIMIT $start, $limit");
 				$stmt->execute();
 				$row = $stmt->fetchAll();
 				return $row;
@@ -212,7 +212,7 @@
 		public function numPages($limit)
 		{
 			try
-			{
+				{
 				$conn = $this->connect();
 				$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 				$stmt = $conn->prepare("SELECT imageId FROM images");
@@ -226,5 +226,145 @@
 				echo "Error: " . $error->getMessage();
 			}
 		}
+
+		public function getImage($imageid)
+		{
+			try
+			{
+				$conn = $this->connect();
+				$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+				$stmt = $conn->prepare("SELECT imagePath FROM images WHERE imageId=?");
+				$stmt->execute([$imageid]);
+				$row = $stmt->fetch(PDO::FETCH_ASSOC);
+				return $row;
+			}
+			catch (PDOException $error)
+			{
+				echo "Error: " . $error->getMessage();
+			}
+		}
+
+		public function getComments($imageid)
+		{
+			try
+			{
+				$conn = $this->connect();
+				$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+				$stmt = $conn->prepare("SELECT comment FROM comments WHERE imageId=?");
+				$stmt->execute([$imageid]);
+				$row = $stmt->fetchAll();
+				return $row;
+			}
+			catch (PDOException $error)
+			{
+				echo "Error: " . $error->getMessage();
+			}
+		}
+
+		//insert comment into database
+		public function setComment($userid, $imageid, $comment)
+		{
+			try
+			{
+				$conn = $this->connect();
+				$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+				$stmt = $conn->prepare("INSERT INTO comments (userId, imageId, comment) VALUE (:userId, :imageId, :comment)");
+				$stmt->bindParam(':userId', $userid);
+				$stmt->bindParam(':imageId', $imageid);
+				$stmt->bindParam(':comment', $comment);
+				$stmt->execute();
+			}
+			catch (PDOException $error)
+			{
+				//echo "Error: " . $error->getMessage();
+			}
+		}
+
+		public function getNumComments($imageid)
+		{
+			try
+				{
+				$conn = $this->connect();
+				$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+				$stmt = $conn->prepare("SELECT commentId FROM comments WHERE imageId=?");
+				$stmt->execute([$imageid]);
+				$rowCount = $stmt->rowCount();
+				return $rowCount;
+			}
+			catch (PDOException $error)
+			{
+				echo "Error: " . $error->getMessage();
+			}
+		}
+
+		public function getNumLikes($imageid)
+		{
+			try
+				{
+				$conn = $this->connect();
+				$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+				$stmt = $conn->prepare("SELECT likeId FROM likes WHERE imageId=?");
+				$stmt->execute([$imageid]);
+				$rowCount = $stmt->rowCount();
+				return $rowCount;
+			}
+			catch (PDOException $error)
+			{
+				echo "Error: " . $error->getMessage();
+			}
+		}
+
+		//insert like into database
+		public function setLike($userid, $imageid)
+		{
+			try
+			{
+				$conn = $this->connect();
+				$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+				$stmt = $conn->prepare("INSERT INTO likes (userId, imageId) VALUE (:userId, :imageId)");
+				$stmt->bindParam(':userId', $userid);
+				$stmt->bindParam(':imageId', $imageid);
+				$stmt->execute();
+			}
+			catch (PDOException $error)
+			{
+				//echo "Error: " . $error->getMessage();
+			}
+		}
+
+		// delete like from database
+		public function unsetLike($userid, $imageid)
+		{
+			try
+			{
+				$conn = $this->connect();
+				$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+				$stmt = $conn->prepare("DELETE FROM likes WHERE userId=? AND imageId=?;");
+				$stmt->execute([$userid, $imageid]);
+			}
+			catch (PDOException $error)
+			{
+				//echo "Error: " . $error->getMessage();
+			}
+		}
+
+		public function checkLike($userid, $imageid)
+		{
+			try
+			{
+				$conn = $this->connect();
+				$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+				$stmt = $conn->prepare("SELECT userId, imageId FROM likes WHERE userId=? AND imageId=?");
+				$stmt->execute([$userid, $imageid]);
+				if ($stmt->rowCount())
+					return true;
+				return false;
+			}
+			catch (PDOException $error)
+			{
+				echo "Error: " . $error->getMessage();
+			}
+		}
+
 	}
 ?>

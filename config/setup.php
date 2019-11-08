@@ -39,7 +39,7 @@
 		echo $sql . "<br>" . $e->getMessage();
 	}
 
-	// CREATE TABLE Image
+	// create table images
 	try {
 		$conn = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
 		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -51,6 +51,43 @@
 		)";
 		$conn->exec($sql);
 		echo "Table images created successfully<br>";
+	}
+	catch (PDOException $e)
+	{
+		echo $sql . "<br>" . $e->getMessage();
+	}
+
+	// create table comments
+	try {
+		$conn = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
+		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		$sql = "CREATE TABLE IF NOT EXISTS comments (
+			commentId INT(11) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+			userId INT(11) NOT NULL,
+			imageId INT(11) NOT NULL,
+			comment VARCHAR(255) NOT NULL,
+			commentDate TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+		)";
+		$conn->exec($sql);
+		echo "Table comments created successfully<br>";
+	}
+	catch (PDOException $e)
+	{
+		echo $sql . "<br>" . $e->getMessage();
+	}
+
+	// create table likes
+	try {
+		$conn = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
+		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		$sql = "CREATE TABLE IF NOT EXISTS likes (
+			likeId INT(11) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+			userId INT(11) NOT NULL,
+			imageId INT(11) NOT NULL,
+			likeDate TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+		)";
+		$conn->exec($sql);
+		echo "Table likes created successfully<br>";
 	}
 	catch (PDOException $e)
 	{

@@ -332,100 +332,108 @@ body {
 	font-size: 16px;
 }
 
-.likes-container {
+
+/**** likes & comments styles *****/
+.comments-container {
 	width: 90%;
 	margin: 0 auto;
 }
 
-
-/**** likes & comments styles *****/
 .cell {
 	width: 100%;
-	background-color: #2CA8FF;
+	background-color: #888;
 	border-radius: 3px;
 	display: block;
 	margin: 0 auto;
 }
 
-.like-comment-num {
+.comments-row {
 	display: grid;
 	grid-template-columns: auto auto;
 	justify-content: space-between;
 }
 
-.like-comment-num div {
+.comments-col {
 	display: grid;
 	grid-template-columns: auto auto;
+	justify-content: start;
 	grid-column-gap: 5px;
-	margin: 10px 10px;
+	margin: 10px;
 }
 
-.likes i {
+.comments-col i {
 	font-size: 20px;
 	color: #888;
 }
 
-.likes p {
+.comments-col p {
 	font-size: 14px;
 	color: #888;
+	margin: 0;
 }
 
-.comments i {
-	font-size: 20px;
-	color: #888;
-}
-
-.comments p {
-	font-size: 14px;
-	color: #888;
-}
-
-.likes-line {
-	width: 80%;
+.comments-line {
+	width: 96%;
 	height: 2px;
 	background-color: #ddd;
-	margin: 0 auto;
+	margin: 10px auto;
 }
 
-.comment-1 {
-	margin: 20px 5px;
+.comment-wrap {
+	margin-top: 20px;
 }
 
-.likes-profile {
+.comment-profile {
 	width: 30px;
 	height: 30px;
-	background-color: #2CA8FF;
+	border: 2px solid #ddd;
 	border-radius: 30px;
+	margin-left: 5px;
+	margin-bottom: 5px;
 }
 
-.comments-block {
-	width: 85%;
-	padding: 10px 10px;
+.comment-box {
+	width: 90%;
+	padding: 15px;
 	border: 1px solid #f1f1f1;
 	border-radius: 3px;
-	margin: 0 40px;
+	margin: 0;
+	margin-left: 20px;
 	background-color: #fff;
 }
 
-.comments-block p {
-	margin: 0;
-	color: #555;
+.comment-box p {
 	font-size: 14px;
+	color: #333;
+	margin: 0;
 }
 
 .comment-textarea {
 	display: block;
-	width: 85%;
-	margin: 0 40px;
-	padding: 6px;
+	width: 90%;
+	margin: 0;
+	margin-left: 20px;
+	min-height: 20px;
+	padding: 6px 12px;
 	font-size: 14px;
 	color: #555;
-	border: 1px solid #fff;
+	border: 1px solid #f1f1f1;
 	border-radius: 3px;
 }
 
+.like-btn {
+	display: inline-block;
+	margin-bottom: 10px;
+	border: none;
+	background: none;
+	margin-top: 10px;
+	font-weight: bold;
+}
+
+
+
 @media screen and (min-width: 600px) {
-	.likes-container {
+	.comments-container {
 		width: 500px;
 	}
 

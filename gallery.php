@@ -10,8 +10,17 @@
 	$images = $dbh->gallery($start, $limit);
 	$pages = $dbh->numPages($limit);
 
-	$prev = $page - 1;
-	$next = $page + 1;
+	//previous pager
+	if ($page == 1)
+		$prev = $page;
+	else
+		$prev = $page - 1;
+
+	//next pager
+	if ($page == $pages)
+		$next = $page;
+	else
+		$next = $page + 1;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -29,7 +38,7 @@
 	<div class="gallery-container">
 		<?php foreach ($images as $image) : ?>
 			<div>
-				<img class="well" src="assets/images/user/<?php echo $image['imagePath'] ?>" alt="image">
+				<a href="comments.php?imageid=<?php echo $image['imageId'] ?>"><img class="well" src="assets/images/user/<?php echo $image['imagePath'] ?>" alt="image"></a>
 			</div>
 		<?php endforeach; ?>
 	</div>
