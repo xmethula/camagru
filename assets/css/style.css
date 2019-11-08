@@ -331,3 +331,106 @@ body {
 	color: red;
 	font-size: 16px;
 }
+
+.likes-container {
+	width: 90%;
+	margin: 0 auto;
+}
+
+
+/**** likes & comments styles *****/
+.cell {
+	width: 100%;
+	background-color: #2CA8FF;
+	border-radius: 3px;
+	display: block;
+	margin: 0 auto;
+}
+
+.like-comment-num {
+	display: grid;
+	grid-template-columns: auto auto;
+	justify-content: space-between;
+}
+
+.like-comment-num div {
+	display: grid;
+	grid-template-columns: auto auto;
+	grid-column-gap: 5px;
+	margin: 10px 10px;
+}
+
+.likes i {
+	font-size: 20px;
+	color: #888;
+}
+
+.likes p {
+	font-size: 14px;
+	color: #888;
+}
+
+.comments i {
+	font-size: 20px;
+	color: #888;
+}
+
+.comments p {
+	font-size: 14px;
+	color: #888;
+}
+
+.likes-line {
+	width: 80%;
+	height: 2px;
+	background-color: #ddd;
+	margin: 0 auto;
+}
+
+.comment-1 {
+	margin: 20px 5px;
+}
+
+.likes-profile {
+	width: 30px;
+	height: 30px;
+	background-color: #2CA8FF;
+	border-radius: 30px;
+}
+
+.comments-block {
+	width: 85%;
+	padding: 10px 10px;
+	border: 1px solid #f1f1f1;
+	border-radius: 3px;
+	margin: 0 40px;
+	background-color: #fff;
+}
+
+.comments-block p {
+	margin: 0;
+	color: #555;
+	font-size: 14px;
+}
+
+.comment-textarea {
+	display: block;
+	width: 85%;
+	margin: 0 40px;
+	padding: 6px;
+	font-size: 14px;
+	color: #555;
+	border: 1px solid #fff;
+	border-radius: 3px;
+}
+
+@media screen and (min-width: 600px) {
+	.likes-container {
+		width: 500px;
+	}
+
+	.cell {
+		width: 500px;
+		height: 500px;
+	}
+}
