@@ -297,6 +297,27 @@
 			}
 		}
 
+		public function sendCommentEmail($imageid)
+		{
+			try
+				{
+				$conn = $this->connect();
+				$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+				$stmt = $conn->prepare("SELECT userId FROM images WHERE imageId=?");
+				$stmt->execute([$imageid]);
+				$id = $stmt->fetch(PDO::FETCH_ASSOC);
+
+				$stmt = $conn->prepare("SELECT email, commentNotify FROM users WHERE userId=?");
+				$stmt->execute([$id['userId']]);
+				$row = $stmt->fetch(PDO::FETCH_ASSOC);
+				return $row;
+			}
+			catch (PDOException $error)
+			{
+				echo "Error: " . $error->getMessage();
+			}
+		}
+
 		public function getNumLikes($imageid)
 		{
 			try
@@ -366,6 +387,7 @@
 			}
 		}
 
+		// get username, email, commentNotify, imagePath, num-of-images, num-of-likes
 		public function getUserInfo($userid)
 		{
 			try
@@ -388,8 +410,7 @@
 				$stmt->execute([$userid]);
 				$likeNum = $stmt->rowCount();
 
-				$row = array_merge($row, $image);
-
+				$row['imagePath'] = $image['imagePath'];
 				$row['imageNum'] = $imageNum;
 				$row['likeNum'] = $likeNum;
 
@@ -398,6 +419,62 @@
 			catch (PDOException $error)
 			{
 				echo "Error: " . $error->getMessage();
+			}
+		}
+
+		//checks if username exist and belongs to the signed in users
+		public function existUsernameUpdate($username, $userid)
+		{
+			try
+			{
+				$conn = $this->connect();
+				$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+				$stmt = $conn->prepare("SELECT count(*) FROM users WHERE username=? AND userId!=?");
+				$stmt->execute([$username, $userid]);
+				$count = $stmt->fetchColumn();
+				if ($count)
+					return true;
+				return false;
+			}
+			catch (PDOException $error)
+			{
+				//echo "Error: " . $error->getMessage();
+			}
+		}
+
+		//checks if email exist and belongs to the signed in users
+		public function existEmailUpdate($email, $userid)
+		{
+			try
+			{
+				$conn = $this->connect();
+				$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+				$stmt = $conn->prepare("SELECT count(*) FROM users WHERE email=? AND userId!=?");
+				$stmt->execute([$email, $userid]);
+				$count = $stmt->fetchColumn();
+				if ($count)
+					return true;
+				return false;
+			}
+			catch (PDOException $error)
+			{
+				//echo "Error: " . $error->getMessage();
+			}
+		}
+
+		// update user info in database
+		public function updateUserInfo($username, $email, $notify, $userid)
+		{
+			try
+			{
+				$conn = $this->connect();
+				$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+				$stmt = $conn->prepare("UPDATE users SET username=?, email=?, commentNotify=? WHERE userId=?");
+				$stmt->execute([$username, $email, $notify, $userid]);
+			}
+			catch (PDOException $error)
+			{
+				//echo "Error: " . $error->getMessage();
 			}
 		}
 

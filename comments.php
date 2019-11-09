@@ -44,9 +44,26 @@
 			$errMessage = "<ul><li>You need to signin in order to comment on a post!</li></ul>";
 		else
 		{
-			$uersid = $_SESSION['userId'];
+			$userid = $_SESSION['userId'];
 			$usercomment = $_POST['comment'];
-			$setComment = $dbh->setComment($uersid, $imageid, $usercomment);
+			$setComment = $dbh->setComment($userid, $imageid, $usercomment);
+			
+			$commentEmail = $dbh->sendCommentEmail($imageid);
+			if ($commentEmail['commentNotify'] == 1)
+			{
+				//send comment email
+				$to = $commentEmail['email'];
+				$subject = "New comment for your post";
+				$message = "<p>You have recieved a new comment!!!</br></p>";
+				$message .= "<p>Please click on the link below to see the comment:</br></p>";
+				$message .= "<p>http://localhost:8080/camagru/comments.php?imageid=$imageid</p>";
+
+				$headers = "From: camagru <notification@camagru.co.za>\r\n";
+				$headers .= "Reply-To: admin@camagru.co.za\r\n";
+				$headers .= "Content-type: text/html\r\n";
+
+				mail($to, $subject, $message, $headers);
+			}
 
 			$errMessage = "<ul><li>You comment was submitted successfully!</li></ul>";
 		}

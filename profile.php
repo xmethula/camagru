@@ -11,6 +11,13 @@
 
 	$dbh = new Dbh();
 	$info = $dbh->getUserInfo($userid);
+
+	//dispaly success message from update info page
+	if (isset($_GET['message']))
+	{
+		$message = $_GET['message'];
+		$errMessage = "<ul><li>$message</li></ul>";
+	}
 ?>
 
 <!DOCTYPE html>
@@ -25,8 +32,19 @@
 </head>
 <body>
 
+	<?php if ($errMessage) : ?>
+		<div class="err-block">
+			<?php echo $errMessage; ?>
+		</div>
+	<?php endif; ?>
+	
+
 	<div class="profile-wrapper">
-		<img class="profile-img" src="assets/images/user/<?php echo $info['imagePath']; ?>" alt="image">
+		<?php if (isset($info['imagePath'])): ?>
+			<img class="profile-img" src="assets/images/user/<?php echo $info['imagePath']; ?>" alt="image">
+		<?php else : ?>
+			<div class="profile-img"></div>
+		<?php endif; ?>
 		<h3 class="username"><?php echo $info['username']; ?></h3>
 		<p class="email"><?php echo $info['email']; ?></p>
 		<div class="line-1"></div>
