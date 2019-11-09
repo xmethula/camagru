@@ -47,7 +47,7 @@
 			$userid = $_SESSION['userId'];
 			$usercomment = $_POST['comment'];
 			$setComment = $dbh->setComment($userid, $imageid, $usercomment);
-			
+
 			$commentEmail = $dbh->sendCommentEmail($imageid);
 			if ($commentEmail['commentNotify'] == 1)
 			{
@@ -136,13 +136,8 @@
 				<div class="comments-row">
 					<button class="like-btn" type="submit" name="like-submit">
 						<div class="comments-col">
-							<?php if (!$dbh->checkLike($userid, $imageid)) : ?>
-								<i class="fa fa-thumbs-o-up"></i>
-								<p>LIKE</p>
-							<?php else: ?>
-								<i class="fa fa-thumbs-o-down"></i>
-								<p>DISLIKE</p>
-							<?php endif; ?>
+							<i class="fa fa-thumbs-o-up"></i>
+							<p>LIKE</p>
 						</div>
 					</button>
 

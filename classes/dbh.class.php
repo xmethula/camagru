@@ -24,9 +24,10 @@
 			{
 				$conn = $this->connect();
 				$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-				$stmt = $conn->prepare("SELECT username FROM users WHERE username=?");
+				$stmt = $conn->prepare("SELECT count(*) FROM users WHERE username=?");
 				$stmt->execute([$username]);
-				if ($stmt->rowCount())
+				$count = $stmt->fetchColumn();
+				if ($count)
 					return true;
 				return false;
 			}
@@ -43,9 +44,10 @@
 			{
 				$conn = $this->connect();
 				$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-				$stmt = $conn->prepare("SELECT email FROM users WHERE email=?");
+				$stmt = $conn->prepare("SELECT count(*) FROM users WHERE email=?");
 				$stmt->execute([$email]);
-				if ($stmt->rowCount())
+				$count = $stmt->fetchColumn();
+				if ($count)
 					return true;
 				return false;
 			}
@@ -82,17 +84,26 @@
 			{
 				$conn = $this->connect();
 				$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-				$stmt = $conn->prepare("SELECT * FROM users WHERE username=?");
+				$stmt = $conn->prepare("SELECT count(*) FROM users WHERE username=?");
 				$stmt->execute([$username]);
-				if ($stmt->rowCount())
+				$count = $stmt->fetchColumn();
+				if ($count)
 				{
+
+					$stmt = $conn->prepare("SELECT userId, passcode, verified FROM users WHERE username=?");
+					$stmt->execute([$username]);
 					$row = $stmt->fetch(PDO::FETCH_ASSOC);
+
 					$checkPassword = password_verify($password, $row['passcode']);
 					$verified = $row['verified'];
 					if ($checkPassword && $verified == 1)
 					{
 						$_SESSION['userId'] = $row['userId'];
 						return 2;
+					}
+					elseif (!$checkPassword && $verified == 1)
+					{
+						return 0;
 					}
 					else
 					{
@@ -113,9 +124,10 @@
 			{
 				$conn = $this->connect();
 				$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-				$stmt = $conn->prepare("SELECT token, verified FROM users WHERE token=? AND verified=?");
+				$stmt = $conn->prepare("SELECT count(*) FROM users WHERE token=? AND verified=?");
 				$stmt->execute([$token, 0]);
-				if ($stmt->rowCount())
+				$count = $stmt->fetchColumn();
+				if ($count)
 					return true;
 				return false;
 			}
@@ -133,7 +145,8 @@
 				$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 				$stmt = $conn->prepare("UPDATE users SET verified=? WHERE token=?");
 				$stmt->execute([1, $token]);
-				if ($stmt->rowCount())
+				$count = $stmt->rowCount();
+				if ($count)
 					return true;
 				return false;
 			}
@@ -182,7 +195,8 @@
 				$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 				$stmt = $conn->prepare("UPDATE users SET passcode=? WHERE token=?");
 				$stmt->execute([$password, $token]);
-				if ($stmt->rowCount())
+				$count = $stmt->rowCount();
+				if ($count)
 					return true;
 				return false;
 			}
@@ -215,10 +229,10 @@
 				{
 				$conn = $this->connect();
 				$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-				$stmt = $conn->prepare("SELECT imageId FROM images");
+				$stmt = $conn->prepare("SELECT count(*) FROM images");
 				$stmt->execute();
-				$rowCount = $stmt->rowCount();
-				$numPages = ceil($rowCount / $limit);
+				$count = $stmt->fetchColumn();
+				$numPages = ceil($count / $limit);
 				return $numPages;
 			}
 			catch (PDOException $error)
@@ -286,10 +300,10 @@
 				{
 				$conn = $this->connect();
 				$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-				$stmt = $conn->prepare("SELECT commentId FROM comments WHERE imageId=?");
+				$stmt = $conn->prepare("SELECT count(*) FROM comments WHERE imageId=?");
 				$stmt->execute([$imageid]);
-				$rowCount = $stmt->rowCount();
-				return $rowCount;
+				$count = $stmt->fetchColumn();
+				return $count;
 			}
 			catch (PDOException $error)
 			{
@@ -324,10 +338,10 @@
 				{
 				$conn = $this->connect();
 				$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-				$stmt = $conn->prepare("SELECT likeId FROM likes WHERE imageId=?");
+				$stmt = $conn->prepare("SELECT count(*) FROM likes WHERE imageId=?");
 				$stmt->execute([$imageid]);
-				$rowCount = $stmt->rowCount();
-				return $rowCount;
+				$count = $stmt->fetchColumn();
+				return $count;
 			}
 			catch (PDOException $error)
 			{
@@ -375,9 +389,10 @@
 			{
 				$conn = $this->connect();
 				$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-				$stmt = $conn->prepare("SELECT userId, imageId FROM likes WHERE userId=? AND imageId=?");
+				$stmt = $conn->prepare("SELECT count(*) FROM likes WHERE userId=? AND imageId=?");
 				$stmt->execute([$userid, $imageid]);
-				if ($stmt->rowCount())
+				$count = $stmt->fetchColumn();
+				if ($count)
 					return true;
 				return false;
 			}
@@ -402,13 +417,13 @@
 				$stmt->execute([$userid]);
 				$image = $stmt->fetch(PDO::FETCH_ASSOC);
 
-				$stmt = $conn->prepare("SELECT imageId FROM images WHERE userId=?");
+				$stmt = $conn->prepare("SELECT count(*) FROM images WHERE userId=?");
 				$stmt->execute([$userid]);
-				$imageNum = $stmt->rowCount();
+				$imageNum = $stmt->fetchColumn();
 
-				$stmt = $conn->prepare("SELECT likeId FROM likes WHERE userId=?");
+				$stmt = $conn->prepare("SELECT count(*) FROM likes WHERE userId=?");
 				$stmt->execute([$userid]);
-				$likeNum = $stmt->rowCount();
+				$likeNum = $stmt->fetchColumn();
 
 				$row['imagePath'] = $image['imagePath'];
 				$row['imageNum'] = $imageNum;
