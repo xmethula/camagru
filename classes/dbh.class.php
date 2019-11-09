@@ -366,5 +366,40 @@
 			}
 		}
 
+		public function getUserInfo($userid)
+		{
+			try
+			{
+				$conn = $this->connect();
+				$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+				$stmt = $conn->prepare("SELECT username, email, commentNotify FROM users WHERE userId=?");
+				$stmt->execute([$userid]);
+				$row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+				$stmt = $conn->prepare("SELECT imagePath FROM images WHERE userId=? ORDER BY postDate DESC LIMIT 1");
+				$stmt->execute([$userid]);
+				$image = $stmt->fetch(PDO::FETCH_ASSOC);
+
+				$stmt = $conn->prepare("SELECT imageId FROM images WHERE userId=?");
+				$stmt->execute([$userid]);
+				$imageNum = $stmt->rowCount();
+
+				$stmt = $conn->prepare("SELECT likeId FROM likes WHERE userId=?");
+				$stmt->execute([$userid]);
+				$likeNum = $stmt->rowCount();
+
+				$row = array_merge($row, $image);
+
+				$row['imageNum'] = $imageNum;
+				$row['likeNum'] = $likeNum;
+
+				return $row;
+			}
+			catch (PDOException $error)
+			{
+				echo "Error: " . $error->getMessage();
+			}
+		}
+
 	}
 ?>

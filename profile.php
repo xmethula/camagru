@@ -4,8 +4,13 @@
 	if (!$_SESSION['userId'])
 		header("Location: signin.php");
 
-	//include navbar
+	require_once 'classes/dbh.class.php';
 	include_once 'navbar.php';
+
+	$userid = $_SESSION['userId'];
+
+	$dbh = new Dbh();
+	$info = $dbh->getUserInfo($userid);
 ?>
 
 <!DOCTYPE html>
@@ -21,23 +26,29 @@
 <body>
 
 	<div class="profile-wrapper">
-		<div class="profile-img"></div>
-		<h3 class="username">xmethula</h3>
-		<p class="email">xmethula@student.wethinkcode.co.za</p>
+		<img class="profile-img" src="assets/images/user/<?php echo $info['imagePath']; ?>" alt="image">
+		<h3 class="username"><?php echo $info['username']; ?></h3>
+		<p class="email"><?php echo $info['email']; ?></p>
 		<div class="line-1"></div>
 		<div class="statistics">
 			<div class="posts">
-				<p class="num">17</p>
+				<p class="num"><?php echo $info['imageNum']; ?></p>
 				<p class="text">POSTS</p>
 			</div>
 			<div class="likes">
-				<p class="num">105</p>
+				<p class="num"><?php echo $info['likeNum']; ?></p>
 				<p class="text">LIKES</p>
 			</div>
 		</div>
 		<div class="line-2"></div>
-		<p class="active-date">Active since: 09 SEP 2019</p>
-		<a href=""><div class="btn-personal">EDIT PERSONAL INFO</div></a>
+		<?php
+			if ($info['commentNotify'] == 1)
+				$notify = "True";
+			else
+				$notify = "False";
+		?>
+		<p class="active-date">Comments notification: <?php echo $notify; ?></p>
+		<a href="edit-info.php"><div class="btn-personal">EDIT INFO</div></a>
 	</div>
 
 	<?php include_once 'footer.php'; ?>

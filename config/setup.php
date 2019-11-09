@@ -29,6 +29,7 @@
 			passcode VARCHAR(255) NOT NULL,
 			token VARCHAR(255) NOT NULL,
 			verified INT(1) NOT NULL DEFAULT 0,
+			commentNotify INT(1) NOT NULL DEFAULT 1,
 			registerDate TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 		)";
 		$conn->exec($sql);

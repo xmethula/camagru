@@ -119,7 +119,7 @@
 				<div class="comments-row">
 					<button class="like-btn" type="submit" name="like-submit">
 						<div class="comments-col">
-							<?php if ($checklike) : ?>
+							<?php if (!$dbh->checkLike($userid, $imageid)) : ?>
 								<i class="fa fa-thumbs-o-up"></i>
 								<p>LIKE</p>
 							<?php else: ?>

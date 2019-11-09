@@ -430,8 +430,6 @@ body {
 	font-weight: bold;
 }
 
-
-
 @media screen and (min-width: 600px) {
 	.comments-container {
 		width: 500px;
@@ -441,4 +439,17 @@ body {
 		width: 500px;
 		height: 500px;
 	}
+}
+
+.check-box {
+	width: 16px;
+	height: 16px;
+	margin-bottom: 20px;
+}
+
+.label-checkbox {
+	position: relative;
+	font-size: 14px;
+	color: #333;
+	bottom: 4px;
 }
