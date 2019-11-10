@@ -31,6 +31,6 @@
 		</ul>
 	</nav>
 
-	<script src="assets/js/script.js"></script>
+	<script src="assets/js/navbar.js"></script>
 </body>
 </html>

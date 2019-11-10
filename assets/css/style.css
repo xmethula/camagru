@@ -453,3 +453,49 @@ body {
 	color: #333;
 	bottom: 4px;
 }
+
+/****      ****/
+.main-container {
+	width: 800px;
+	margin: 20px auto;
+}
+
+.post-container {
+	width: 800px;
+	display: grid;
+	grid-template-columns: 400px 320px;
+	grid-column-gap: 80px;
+}
+
+.image-preview {
+	min-height: 200px;
+	border: 2px solid #c4c4c4;
+	margin: 20px 0;
+
+	/* style for default text */
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-weight: bold;
+	color: #ccc;
+}
+
+.image-preview-image {
+	display: none;
+	width: 100%;
+}
+
+.uploaded-images {
+	display: grid;
+	grid-template-columns: auto auto auto;
+	grid-gap: 10px;
+	margin: 20px 0;
+}
+
+
+/* remove when done stying post page */
+.cell-2 {
+	width: 100%;
+	height: 100px;
+	background-color: #888;
+}
