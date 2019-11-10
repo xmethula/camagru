@@ -279,7 +279,7 @@ body {
 @media screen and (min-width: 850px) {
 	.gallery-container {
 		width: 770px;
-		grid-template-columns: auto auto auto;
+		grid-template-columns: 250px 250px 250px;
 		grid-column-gap: 10px;
 	}
 }
@@ -341,7 +341,7 @@ body {
 
 .cell {
 	width: 100%;
-	background-color: #888;
+	background-color: #ccc;
 	border-radius: 3px;
 	display: block;
 	margin: 0 auto;
@@ -468,7 +468,7 @@ body {
 }
 
 .image-preview {
-	min-height: 200px;
+	min-height: 250px;
 	border: 2px solid #c4c4c4;
 	margin: 20px 0;
 
@@ -490,6 +490,28 @@ body {
 	grid-template-columns: auto auto auto;
 	grid-gap: 10px;
 	margin: 20px 0;
+	align-self: start;
+}
+
+.stickers {
+	width: 230px;
+	margin: 20px auto;
+	display: grid;
+	grid-template-columns: 50px 50px 50px 50px;
+	grid-column-gap: 10px;
+}
+
+.sticker {
+	width: 100%;
+	height: 50px;
+}
+
+.radio-btn {
+	display: block;
+	width: 16px;
+	height: 16px;
+	margin: auto;
+	margin-top: 5px;
 }
 
 
@@ -499,3 +521,5 @@ body {
 	height: 100px;
 	background-color: #888;
 }
+
+

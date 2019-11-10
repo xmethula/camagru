@@ -241,6 +241,24 @@
 			}
 		}
 
+		//insert image into database
+		public function setImage($userid, $imagePath)
+		{
+			try
+			{
+				$conn = $this->connect();
+				$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+				$stmt = $conn->prepare("INSERT INTO images (userId, imagePath) VALUE (:userId, :imagePath)");
+				$stmt->bindParam(':userId', $userid);
+				$stmt->bindParam(':imagePath', $imagePath);
+				$stmt->execute();
+			}
+			catch (PDOException $error)
+			{
+				//echo "Error: " . $error->getMessage();
+			}
+		}
+
 		public function getImage($imageid)
 		{
 			try
