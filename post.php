@@ -9,46 +9,59 @@
 
 	include_once 'navbar.php';
 	require_once 'classes/dbh.class.php';
+	require_once 'classes/image-processing.inc.php';
 
 	if (isset($_POST['upload']))
 	{
-		$file = $_FILES['file'];
-
-		$fileName = $_FILES['file']['name'];
-		$fileTmpName = $_FILES['file']['tmp_name'];
-		$fileSize = $_FILES['file']['size'];
-		$fileError = $_FILES['file']['error'];
-		$fileType = $_FILES['file']['type'];
-
-		$fileExt = explode('.', $fileName);
-		$fileActualExt = strtolower(end($fileExt));
-
-		$allowed = array('jpg', 'jpeg', 'png');
-
-		if (in_array($fileActualExt, $allowed))
+		if (isset($_POST['sticker']))
 		{
-			if ($fileError === 0)
+			$file = $_FILES['file'];
+
+			$fileName = $_FILES['file']['name'];
+			$fileTmpName = $_FILES['file']['tmp_name'];
+			$fileSize = $_FILES['file']['size'];
+			$fileError = $_FILES['file']['error'];
+			$fileType = $_FILES['file']['type'];
+
+			$fileExt = explode('.', $fileName);
+			$fileActualExt = strtolower(end($fileExt));
+
+			$allowed = array('jpg', 'jpeg', 'png');
+
+			if (in_array($fileActualExt, $allowed))
 			{
-				if ($fileSize < 500000)
+				if ($fileError === 0)
 				{
-					$fileNameNew = uniqid('', true) . "." . $fileActualExt;
-					$fileDestination = 'assets/images/user/' . $fileNameNew;
-					move_uploaded_file($fileTmpName, $fileDestination);
+					if ($fileSize < 500000)
+					{
+						$fileNameNew = uniqid('', true) . "." . $fileActualExt;
+						$fileDestination = 'assets/images/user/' . $fileNameNew;
+						move_uploaded_file($fileTmpName, $fileDestination);
 
-					//inssrt image into database
-					$dbh = new Dbh();
-					$dbh->setImage($userid, $fileNameNew);
+						//inssrt image into database
+						$dbh = new Dbh();
+						$dbh->setImage($userid, $fileNameNew);
 
-					$errMessage = "<ul><li>Image uploaded successful!</li></ul>";
+						//get the sticker that has been picked
+						$image_processing = new ImageProcessing();
+						$sticker = $image_processing->getSticker($_POST['sticker']);
+
+						//add sticker and save the image on assets/images/app/
+						$image_processing->mergeImages($fileDestination, $sticker);
+
+						$errMessage = "<ul><li>Image uploaded successful!</li></ul>";
+					}
+					else
+						$errMessage = "<ul><li>Image must be less than 5mb!</li></ul>";
 				}
 				else
-					$errMessage = "<ul><li>Image must be less than 5mb!</li></ul>";
+					$errMessage = "<ul><li>The was an error uploading your Image!</li></ul>";
 			}
 			else
-				$errMessage = "<ul><li>The was an error uploading your Image!</li></ul>";
+				$errMessage = "<ul><li>You cannot upload images of this type!</li></ul>";
 		}
 		else
-			$errMessage = "<ul><li>You cannot upload images of this type!</li></ul>";
+			$errMessage = "<ul><li>Please select a sticker!</li></ul>";
 	}
 ?>
 
@@ -84,22 +97,22 @@
 					<div class="stickers">
 						<div>
 							<img class="sticker" src="assets/images/app/sticker01.png" alt="sticker01">
-							<input type="radio" class="radio-btn" name="sticker">
+							<input type="radio" class="radio-btn" name="sticker" value="sticker01">
 						</div>
 
 						<div>
 							<img class="sticker" src="assets/images/app/sticker02.png" alt="sticker02">
-							<input type="radio" class="radio-btn" name="sticker">
+							<input type="radio" class="radio-btn" name="sticker" value="sticker02">
 						</div>
 
 						<div>
 							<img class="sticker" src="assets/images/app/sticker03.png" alt="sticker03">
-							<input type="radio" class="radio-btn" name="sticker">
+							<input type="radio" class="radio-btn" name="sticker" value="sticker03">
 						</div>
 
 						<div>
 							<img class="sticker" src="assets/images/app/sticker04.png" alt="sticker04">
-							<input type="radio" class="radio-btn" name="sticker">
+							<input type="radio" class="radio-btn" name="sticker" value="sticker04">
 						</div>
 					</div>
 				</div>
