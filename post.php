@@ -23,6 +23,7 @@
 			$fileError = $_FILES['file']['error'];
 			$fileType = $_FILES['file']['type'];
 
+
 			$fileExt = explode('.', $fileName);
 			$fileActualExt = strtolower(end($fileExt));
 
@@ -42,9 +43,8 @@
 						$dbh = new Dbh();
 						$dbh->setImage($userid, $fileNameNew);
 
-						//get the sticker that has been picked
 						$image_processing = new ImageProcessing();
-						$sticker = $image_processing->getSticker($_POST['sticker']);
+						$sticker = $_POST['sticker'];
 
 						//add sticker and save the image on assets/images/app/
 						$image_processing->mergeImages($fileDestination, $sticker);
@@ -86,48 +86,42 @@
 
 	<div class="main-container">
 		<!--<form >-->
-			<div class="col-row">
-				<div class="select-area">
-					<select id="dropdown" onchange="setPicture(this)">
-						<option value="resources/handtinywhite.gif">select sticker</option>
-						<option value="resources/brick.jpg">brick</option>
-						<option value="resources/book.png">book</option>
-					</select>
-					<img class="img1" height="50px" width="50px" src="resources/handtinywhite.gif">
+			<form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST" enctype="multipart/form-data">
+				<div class="col-row">
+					<div class="select-area">
+						<select class="select-input" name="sticker" id="dropdown" onchange="setPicture(this)">
+							<option value="assets/images/app/sticker01.png">sticker01</option>
+							<option value="assets/images/app/sticker02.png">sticker02</option>
+							<option value="assets/images/app/sticker03.png">sticker03</option>
+							<option value="assets/images/app/sticker04.png">sticker04</option>
+						</select>
+						<img class="img1" height="50px" width="50px" src="assets/images/app/sticker01.png">
+					</div>
+					<div>
+						<input type="file" name="file">
+					</div>
+					<button type="submit" name="upload" value="upload image">upload image</button>
 				</div>
-				<div>
-					<input type="file" name="file">
-				</div>
-				<button type="submit" name="upload" value="upload image">upload image</button>
-			</div>
+			</form>
 
 			<div class="col-row">
 				<div class="video-preview-area">
 					<div>
 						<div class="video-area">
-							<video width="100%" id="video" autoplay></video>
+							<video id="video">Stream not available...</video>
 						</div>
 						<div class="webcam-btn-wrap">
-							<!-- When snap button is clicked it takes a snapshot of the video-->
-							<button id="snap" class="btn btn-default">Take Snapshot</button>
-							<!-- When button is clicked the uploadEx function is called which takes the snapshot and uploads it to the uploads file-->
-							<button onclick="uploadEx()" id="new" class="btn btn-default">Save and Upload</button>
+							<button id="photo-button" class="">capture</button>
+							<button onclick="uploadEx()" id="new" class="">save and upload</button>
 							<form method="post" accept-charset="utf-8" name="form1">
 								<input name="hidden_data" id="hidden_data" type="hidden">
 							</form>
-
 						</div>
 					</div>
 
 					<div class="video-area">
-						<!-- superposable image on top of the canvas -->
-
-						<!-- Screenshot image is stored in canvas -->
-						<canvas id="canvas" style="display:none"></canvas>
-						<img src="">
-						<img id="test" onclick="change()">
-						<img class="img1" height="50px" width="50px" src="resources/handtinywhite.gif">
-				</div>
+						<canvas id="canvas"></canvas>
+					</div>
 				</div>
 			</div>
 		<!--</form>-->

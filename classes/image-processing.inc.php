@@ -1,20 +1,7 @@
 <?php
 	class ImageProcessing
 	{
-		public function getSticker($sticker)
-		{
-			if ($sticker == "sticker01")
-				$value = "assets/images/app/sticker01.png";
-			elseif ($sticker == "sticker02")
-				$value = "assets/images/app/sticker02.png";
-			elseif ($sticker == "sticker03")
-				$value = "assets/images/app/sticker03.png";
-			elseif ($sticker == "sticker04")
-				$value = "assets/images/app/sticker04.png";
-
-			return $value;
-		}
-
+		
 		public function mergeImages($image, $sticker)
 		{
 			$image1 = $image;

@@ -454,66 +454,7 @@ body {
 	bottom: 4px;
 }
 
-/****      ****/
-/*.main-container {
-	width: 800px;
-	margin: 20px auto;
-}
-
-.post-container {
-	width: 800px;
-	display: grid;
-	grid-template-columns: 400px 320px;
-	grid-column-gap: 80px;
-}
-
-.image-preview {
-	min-height: 250px;
-	border: 2px solid #c4c4c4;
-	margin: 20px 0;
-
-
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	font-weight: bold;
-	color: #ccc;
-}
-
-.image-preview-image {
-	display: none;
-	width: 100%;
-}
-
-.uploaded-images {
-	display: grid;
-	grid-template-columns: auto auto auto;
-	grid-gap: 10px;
-	margin: 20px 0;
-	align-self: start;
-}
-
-.stickers {
-	width: 230px;
-	margin: 20px auto;
-	display: grid;
-	grid-template-columns: 50px 50px 50px 50px;
-	grid-column-gap: 10px;
-}
-
-.sticker {
-	width: 100%;
-	height: 50px;
-}
-
-.radio-btn {
-	display: block;
-	width: 16px;
-	height: 16px;
-	margin: auto;
-	margin-top: 5px;
-}*/
-
+/****  post page    ****/
 .main-container {
 	width: 880px;
 	margin: 20px auto;
@@ -546,16 +487,18 @@ body {
 
 .select-area {
 	display: grid;
-	grid-template-columns: 150px 200px;
+	grid-template-columns: 120px 200px;
 	grid-column-gap: 30px;
 	margin: 10px 0;
 }
 
 .select-area select {
-	align-self: start;
+	align-self: center;
 }
 
-
+.select-input {
+	height: 30px;
+}
 
 
 

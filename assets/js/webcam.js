@@ -1,51 +1,72 @@
-/*Object is used when calling getUserMedia() to specify what kinds of tracks is needed with the video stream.
-Optionally, to add constraints such as video and audio. */
-const constraints = {
-	video:true,
-	audio:false
-}
+// Global Vars
+let width = 400,
+    height = 0,
+    filter = 'none',
+    streaming = false;
 
-
-const video = document.querySelector("#video");
-//getUserMedia method prompts the user for permission to use a media input which produces, in this case, a video stream.
-navigator.mediaDevices.getUserMedia(constraints).then((stream) => {video.srcObject = stream});
-const screenShotButton = document.querySelector('#snap');
-const img = document.querySelector("img");
+// DOM Elements
+const video = document.getElementById('video');
+const canvas = document.getElementById('canvas');
+const photoButton = document.getElementById('photo-button');
 const img1 = document.querySelector('.img1');
 
+// Get media stream
+navigator.mediaDevices.getUserMedia({video: true, audio: false})
+  .then(function(stream) {
+    // Link to the video source
+    video.srcObject = stream;
+    // Play video
+    video.play();
+  })
+  .catch(function(err) {
+    console.log(`Error: ${err}`);
+  });
+
+  // Play when ready
+  video.addEventListener('canplay', function(e) {
+    if(!streaming) {
+      // Set video / canvas height
+      height = video.videoHeight / (video.videoWidth / width);
+
+      video.setAttribute('width', width);
+      video.setAttribute('height', height);
+      canvas.setAttribute('width', width);
+      canvas.setAttribute('height', height);
+
+      streaming = true;
+    }
+  }, false);
+
+  // Photo button event
+  photoButton.addEventListener('click', function(e) {
+    takePicture();
+
+    e.preventDefault();
+  }, false);
 
 
-//this function is called above with the selection of superposable images. Depending on which option you selected it takes the value and adds it to the image src.
-function setPicture(select){
-	var DD = document.getElementById('dropdown');
-	var value = DD.options[DD.selectedIndex].value;
-	img1.src = value;
+  function setPicture(select){
+    var DD = document.getElementById('dropdown');
+    var value = DD.options[DD.selectedIndex].value;
+    img1.src = value;
 
-}
+  }
 
+  // Take picture from canvas
+  function takePicture() {
+    // Create canvas
+    const context = canvas.getContext('2d');
+    if(width && height) {
+      // set canvas props
+      canvas.width = width;
+      canvas.height = height;
+      // Draw an image of the video on the canvas
+      context.drawImage(video, 0, 0, width, height);
+      context.drawImage(img1, 50, 50, 150, 150);
+    }
+  }
 
-//when the screenshot button is clicked a canvas image is created from the video feed and img1 is added on the top
-screenShotButton.onclick = video.onclick = function(){
-	canvas.width = video.videoWidth;
-	canvas.height = video.videoHeight;
-	var context = canvas.getContext('2d');
-
-	context.globalAlpha = 1.0;
-	context.drawImage(video, 0, 0);
-	context.globalAlpha = 1.0;
-	context.drawImage(img1, 59, 92);
-	// toDataUrl method returns a data URI containing a representation of the image in the format specified by the type.
-	//In this case the format is png
-	img.src = canvas.toDataURL('image/png');
-};
-function handleSuccess(stream) {
-	screenShotButton.disabled = false;
-	video.srcObject = stream;
-}
-var url = canvas.toDataURL();
-
-
-//Function uses ajax to send image data to upload_data.php
+  //Function uses ajax to send image data to upload_data.php
 function uploadEx(){
 	var dataURL = canvas.toDataURL("image/png");
 	document.getElementById('hidden_data').value = dataURL;
