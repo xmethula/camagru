@@ -455,7 +455,7 @@ body {
 }
 
 /****      ****/
-.main-container {
+/*.main-container {
 	width: 800px;
 	margin: 20px auto;
 }
@@ -472,7 +472,7 @@ body {
 	border: 2px solid #c4c4c4;
 	margin: 20px 0;
 
-	/* style for default text */
+
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -512,7 +512,51 @@ body {
 	height: 16px;
 	margin: auto;
 	margin-top: 5px;
+}*/
+
+.main-container {
+	width: 880px;
+	margin: 20px auto;
 }
+
+.video-preview-area {
+	display: grid;
+	grid-template-columns: 400px 400px;
+	grid-column-gap: 80px;
+}
+
+.video-area {
+	height: 300px;
+	border: 2px solid #c4c4c4;
+}
+
+.uploaded-images-area {
+	display: grid;
+	grid-template-columns: 100px 100px 100px;
+	grid-column-gap: 10px;
+}
+
+.col-row {
+	margin: 20px 0;
+}
+
+.webcam-btn-wrap {
+	margin: 20px 0;
+}
+
+.select-area {
+	display: grid;
+	grid-template-columns: 150px 200px;
+	grid-column-gap: 30px;
+	margin: 10px 0;
+}
+
+.select-area select {
+	align-self: start;
+}
+
+
+
 
 
 /* remove when done stying post page */

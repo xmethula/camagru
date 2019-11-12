@@ -15,21 +15,19 @@
 			<div class="col-md-8">
 				<!-- Live video image-->
 				<video id="video" autoplay></video>
-				<p>
-					<!-- When snap button is clicked it takes a snapshot of the video-->
-					<button id="snap" class="btn btn-default">Take Snapshot</button>
-					<!-- When button is clicked the uploadEx function is called which takes the snapshot and uploads it to the uploads file-->
-					<button onclick="uploadEx()" id="new" class="btn btn-default">Save and Upload</button>
-					<form method="post" accept-charset="utf-8" name="form1">
-						<input name="hidden_data" id="hidden_data" type="hidden">
-					</form>
-					<!-- superposable image on top of the canvas -->
-					<img src="">
-					<!-- Screenshot image is stored in canvas -->
-					<canvas id="canvas" style="display:none"></canvas>
-				</p>
-				<img id="test" onclick="change()">
-			</div>
+				<!-- When snap button is clicked it takes a snapshot of the video-->
+				<button id="snap" class="btn btn-default">Take Snapshot</button>
+				<!-- When button is clicked the uploadEx function is called which takes the snapshot and uploads it to the uploads file-->
+				<button onclick="uploadEx()" id="new" class="btn btn-default">Save and Upload</button>
+				<form method="post" accept-charset="utf-8" name="form1">
+					<input name="hidden_data" id="hidden_data" type="hidden">
+				</form>
+				<!-- superposable image on top of the canvas -->
+				<img src="">
+				<!-- Screenshot image is stored in canvas -->
+				<canvas id="canvas" style="display:none"></canvas>
+				<img onclick="change()">
+		</div>
 
 			<div class="col-md-4">
 
