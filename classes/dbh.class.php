@@ -276,6 +276,23 @@
 			}
 		}
 
+		public function getUserImages($userid)
+		{
+			try
+			{
+				$conn = $this->connect();
+				$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+				$stmt = $conn->prepare("SELECT imagePath FROM images WHERE userId=? ORDER BY postDate DESC");
+				$stmt->execute([$userid]);
+				$row = $stmt->fetchAll();
+				return $row;
+			}
+			catch (PDOException $error)
+			{
+				echo "Error: " . $error->getMessage();
+			}
+		}
+
 		public function getComments($imageid)
 		{
 			try

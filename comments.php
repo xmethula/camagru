@@ -117,7 +117,7 @@
 
 		<?php foreach ($comments as $comment) : ?>
 			<div class="comment-wrap">
-				<img class="comment-profile" src="assets/images/user/img03.jpeg" alt="">
+				<img class="comment-profile" src="assets/images/app/sticker01.png" alt="">
 				<div class="comment-box">
 					<p><?php echo $comment['comment']; ?></p>
 				</div>

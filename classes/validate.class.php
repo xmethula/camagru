@@ -27,7 +27,7 @@
 
 		public function validatePassword($password)
 		{
-			if (strlen($password) < 6 || strlen($password) > 16)
+			if (!preg_match("#.*^(?=.{8,20})(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).*$#", $password))
 				return true;
 			return false;
 		}

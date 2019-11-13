@@ -1,5 +1,5 @@
 // Global Vars
-let width = 400,
+let width = 395,
     height = 0,
     filter = 'none',
     streaming = false;

@@ -4,12 +4,13 @@
 	if (!isset($_SESSION['userId']))
 		header("Location: signin.php");
 
-	$userid = $_SESSION['userId'];
-	$errMessage = NULL;
-
 	include_once 'navbar.php';
 	require_once 'classes/dbh.class.php';
 	require_once 'classes/image-processing.inc.php';
+
+	$userid = $_SESSION['userId'];
+	$errMessage = NULL;
+	$dbh = new Dbh();
 
 	if (isset($_POST['upload']))
 	{
@@ -40,7 +41,6 @@
 						move_uploaded_file($fileTmpName, $fileDestination);
 
 						//inssrt image into database
-						$dbh = new Dbh();
 						$dbh->setImage($userid, $fileNameNew);
 
 						$image_processing = new ImageProcessing();
@@ -100,7 +100,7 @@
 					<div>
 						<input type="file" name="file">
 					</div>
-					<button type="submit" name="upload" value="upload image">upload image</button>
+					<button class="webcam-btn margin-top-upload" type="submit" name="upload" value="upload image">Upload image</button>
 				</div>
 			</form>
 
@@ -111,8 +111,8 @@
 							<video id="video">Stream not available...</video>
 						</div>
 						<div class="webcam-btn-wrap">
-							<button id="photo-button" class="">capture</button>
-							<button onclick="uploadEx()" id="new" class="">save and upload</button>
+							<button id="photo-button" class="webcam-btn">Capture</button>
+							<button onclick="uploadEx()" id="new" class="webcam-btn">Save and upload</button>
 							<form method="post" accept-charset="utf-8" name="form1">
 								<input name="hidden_data" id="hidden_data" type="hidden">
 							</form>
@@ -127,11 +127,12 @@
 		<!--</form>-->
 
 		<div class="col-row">
-			<p>UPLOADED IMAGES</p>
+			<p class="uploaded-images-text">UPLOADED IMAGES</p>
 			<div class="uploaded-images-area">
-				<div class="cell-2"></div>
-				<div class="cell-2"></div>
-				<div class="cell-2"></div>
+				<?php $userImages = $dbh->getUserImages($userid); ?>
+				<?php foreach ($userImages as $image) : ?>
+					<img class="cell-2" src="assets/images/user/<?php echo $image['imagePath']; ?>" alt="image">
+				<?php endforeach; ?>
 			</div>
 		</div>
 	</div>

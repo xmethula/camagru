@@ -27,7 +27,10 @@
 		elseif ($validate->validateEamil($email))
 			$errMessage = "<ul><li>Email address is invalid!</li></ul>";
 		elseif ($validate->validatePassword($password))
-			$errMessage = "<ul><li>Password must be between 6 to 16 characters!</li></ul>";
+			$errMessage = "<ul><li>Password must be between 8 to 20 characters!</li></ul>
+							<ul><li>Password must contain at least 1 number!</li></ul>
+							<ul><li>Password must contain at least 1 lowercase letter!</li></ul>
+							<ul><li>Password must contain at least 1 uppercase letter!</li></ul>";
 		elseif ($validate->validateConfirm($password, $confirm))
 			$errMessage = "<ul><li>Password do not match!</li></ul>";
 		elseif ($dbh->existUsername($_POST['username']))
