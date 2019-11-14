@@ -126,4 +126,25 @@
 		}
 	}
 	echo "Default user inserted successfully<br>";
+
+	// insert 12 images, 1 image per user
+	for ($i = 1; $i <= 12; $i++)
+	{
+		$userid = $i;
+		$imagePath = "default" .$i .".jpeg";
+		try
+		{
+			$conn = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
+			$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			$stmt = $conn->prepare("INSERT INTO images (userId, imagePath) VALUE (:userId, :imagePath)");
+			$stmt->bindParam(':userId', $userid);
+			$stmt->bindParam(':imagePath', $imagePath);
+			$stmt->execute();
+		}
+		catch (PDOException $error)
+		{
+			//echo "Error: " . $error->getMessage();
+		}
+	}
+	echo "Default images inserted successfully<br>";
 ?>

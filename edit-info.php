@@ -2,16 +2,14 @@
 	session_start();
 
 	if (!isset($_SESSION['userId']))
-	{
 		header("Location: signin.php");
-	}
 
 	include_once 'navbar.php';
 	require_once 'classes/validate.class.php';
 	require_once 'classes/dbh.class.php';
-	
+
 	$userid = $_SESSION['userId'];
-	
+
 	$dbh = new Dbh();
 	$info = $dbh->getUserInfo($userid);
 
@@ -37,7 +35,7 @@
 		elseif ($dbh->existEmailUpdate($email, $userid))
 			$errMessage = "<ul><li>email address already exist!</li></ul>";
 		elseif ($errMessage == NULL)
-		{	
+		{
 			//set comments notification value
 			if ($notify == "on")
 			{
@@ -55,7 +53,7 @@
 			header("Location: profile.php?message=$errMessage");
 		}
 	}
-	
+
 ?>
 
 <!DOCTYPE html>

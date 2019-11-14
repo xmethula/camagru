@@ -1,7 +1,7 @@
 <?php
 	session_start();
 
-	if ($_SESSION['userId'])
+	if (isset($_SESSION['userId']))
 		header("Location: profile.php");
 
 	require_once 'classes/validate.class.php';

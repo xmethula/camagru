@@ -45,7 +45,7 @@
 		else
 		{
 			$userid = $_SESSION['userId'];
-			$usercomment = $_POST['comment'];
+			$usercomment = strip_tags($_POST['comment']);
 			$setComment = $dbh->setComment($userid, $imageid, $usercomment);
 
 			$commentEmail = $dbh->sendCommentEmail($imageid);

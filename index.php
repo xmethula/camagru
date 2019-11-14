@@ -1,8 +1,8 @@
 <?php
 	session_start();
 
-	if ($_SESSION['userId'])
-		echo "SignedIn" . "<br>";
+	if (isset($_SESSION['userId']))
+		header("Location: profile.php");
 	else
-		echo "SignedOut" . "<br>";
+		header("Location: signin.php");
 ?>

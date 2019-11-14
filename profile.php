@@ -1,7 +1,7 @@
 <?php
 	session_start();
 
-	if (!$_SESSION['userId'])
+	if (!isset($_SESSION['userId']))
 		header("Location: signin.php");
 
 	require_once 'classes/dbh.class.php';
@@ -37,7 +37,7 @@
 			<?php echo $errMessage; ?>
 		</div>
 	<?php endif; ?>
-	
+
 
 	<div class="profile-wrapper">
 		<?php if (isset($info['imagePath'])): ?>

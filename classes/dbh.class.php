@@ -212,7 +212,7 @@
 			{
 				$conn = $this->connect();
 				$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-				$stmt = $conn->prepare("SELECT imagePath, imageId FROM images ORDER BY postDate DESC LIMIT $start, $limit");
+				$stmt = $conn->prepare("SELECT imagePath, imageId FROM images ORDER BY imageId DESC LIMIT $start, $limit");
 				$stmt->execute();
 				$row = $stmt->fetchAll();
 				return $row;
@@ -282,7 +282,7 @@
 			{
 				$conn = $this->connect();
 				$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-				$stmt = $conn->prepare("SELECT imagePath FROM images WHERE userId=? ORDER BY postDate DESC");
+				$stmt = $conn->prepare("SELECT imagePath FROM images WHERE userId=? ORDER BY imageId DESC");
 				$stmt->execute([$userid]);
 				$row = $stmt->fetchAll();
 				return $row;
