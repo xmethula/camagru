@@ -18,6 +18,7 @@
 		die(-1);
 	}
 
+
 	// create table users
 	try {
 		$conn = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
@@ -58,6 +59,7 @@
 		echo $sql . "<br>" . $e->getMessage();
 	}
 
+
 	// create table comments
 	try {
 		$conn = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
@@ -77,6 +79,7 @@
 		echo $sql . "<br>" . $e->getMessage();
 	}
 
+
 	// create table likes
 	try {
 		$conn = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
@@ -95,4 +98,32 @@
 		echo $sql . "<br>" . $e->getMessage();
 	}
 
+
+	// inserting 12 users into database
+	for ($i = 'a'; $i <= 'l'; $i++)
+	{
+		$username = $i ."methula";
+		$email = $username ."@gmail.com";
+		$password = "QRdb45#!";
+		$password = password_hash($password, PASSWORD_DEFAULT);
+		$token = "";
+		$verified = 1;
+		try
+		{
+			$conn = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
+			$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			$stmt = $conn->prepare("INSERT INTO users (username, email, passcode, token, verified) VALUE (:username, :email, :passcode, :token, :verified)");
+			$stmt->bindParam(':username', $username);
+			$stmt->bindParam(':email', $email);
+			$stmt->bindParam(':passcode', $password);
+			$stmt->bindParam(':token', $token);
+			$stmt->bindParam(':verified', $verified);
+			$stmt->execute();
+		}
+		catch (PDOException $error)
+		{
+			echo "Error: " . $error->getMessage();
+		}
+	}
+	echo "Default user inserted successfully<br>";
 ?>
