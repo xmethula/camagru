@@ -17,7 +17,7 @@
 		<span class="topNavbar-toggle" id="js-topNavbar-toggle">
 			<i class="fa fa-reorder"></i>
 		</span>
-		<a href="signin.php" class="logo">CAMAGRU</a>
+		<a href="index.php" class="logo">CAMAGRU</a>
 		<ul class="main-nav" id="js-menu">
 			<li><a href="gallery.php" class="nav-links">Gallery</a></li>
 			<?php if ($_SESSION['userId']) : ?>

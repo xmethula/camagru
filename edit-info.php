@@ -91,6 +91,9 @@
 		</form>
 	</div>
 
+	<div class="footer-align-editinfo">
+	</div>
+
 	<?php include_once 'footer.php'; ?>
 </body>
 </html>

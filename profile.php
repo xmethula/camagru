@@ -69,6 +69,9 @@
 		<a href="edit-info.php"><div class="btn-personal">EDIT INFO</div></a>
 	</div>
 
+	<div class="footer-align-profile">
+	</div>
+
 	<?php include_once 'footer.php'; ?>
 </body>
 </html>

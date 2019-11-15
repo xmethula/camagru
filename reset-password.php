@@ -76,6 +76,9 @@
 		</form>
 	</div>
 
+	<div class="footer-align-resetpass">
+	</div>
+
 	<?php include_once 'footer.php'; ?>
 </body>
 </html>

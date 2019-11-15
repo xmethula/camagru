@@ -69,6 +69,9 @@
 		</form>
 	</div>
 
+	<div class="footer-align-signin">
+	</div>
+
 	<?php include_once 'footer.php'; ?>
 </body>
 </html>

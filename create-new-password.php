@@ -64,5 +64,11 @@
 			<button class="btn-signup reset-btn" type="submit" name="reset-password" value="RESET PASSWORD">RESET PASSWORD</button>
 		</form>
 	</div>
+
+	<div class="footer-align-createNewPass">
+	</div>
+
+	<?php include_once 'footer.php'; ?>
+
 </body>
 </html>

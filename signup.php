@@ -97,6 +97,9 @@
 		</form>
 	</div>
 
+	<div class="footer-align-signup">
+	</div>
+
 	<?php include_once 'footer.php'; ?>
 </body>
 </html>

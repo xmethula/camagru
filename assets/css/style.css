@@ -497,13 +497,13 @@ body {
 
 .uploaded-images-area {
 	display: grid;
-	grid-template-columns: repeat(2, auto);
+	grid-template-columns: repeat(2, 100px);
 	grid-gap: 10px;
 }
 
 @media screen and (min-width: 600px) {
 	.uploaded-images-area{
-		grid-template-columns: repeat(4, auto);
+		grid-template-columns: repeat(4, 100px);
 	}
 }
 
@@ -537,7 +537,7 @@ body {
 }
 
 .cell-2 {
-	width: 100%;
+	width: 100px;
 	height: 100px;
 	background-color: #888;
 }
@@ -562,3 +562,29 @@ body {
 .margin-top-upload {
 	margin-top: 10px;
 }
+
+.footer-align-signup {
+	margin-top: 300px;
+}
+
+.footer-align-signin {
+	margin-top: 373px;
+}
+
+.footer-align-profile {
+	margin-top: 237px;
+}
+
+.footer-align-editinfo {
+	margin-top: 410px;
+}
+
+.footer-align-resetpass {
+	margin-top: 470px;
+}
+
+.footer-align-createNewPass {
+	margin-top: 447px;
+}
+
+
