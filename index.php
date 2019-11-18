@@ -1,3 +1,3 @@
 <?php
-	header("Location: gallery.php");
+	header("Location: config/setup.php");
 ?>

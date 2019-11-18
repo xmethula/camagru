@@ -99,38 +99,36 @@
 	}
 
 
-	// inserting 12 users into database
-	for ($i = 'a'; $i <= 'l'; $i++)
+	// insert 1 user into database
+	$username = "xmethula";
+	$email = "xmethula@gmail.com";
+	$password = "QRdb45#!";
+	$password = password_hash($password, PASSWORD_DEFAULT);
+	$token = "";
+	$verified = 1;
+	try
 	{
-		$username = $i ."methula";
-		$email = $username ."@gmail.com";
-		$password = "QRdb45#!";
-		$password = password_hash($password, PASSWORD_DEFAULT);
-		$token = "";
-		$verified = 1;
-		try
-		{
-			$conn = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
-			$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-			$stmt = $conn->prepare("INSERT INTO users (username, email, passcode, token, verified) VALUE (:username, :email, :passcode, :token, :verified)");
-			$stmt->bindParam(':username', $username);
-			$stmt->bindParam(':email', $email);
-			$stmt->bindParam(':passcode', $password);
-			$stmt->bindParam(':token', $token);
-			$stmt->bindParam(':verified', $verified);
-			$stmt->execute();
-		}
-		catch (PDOException $error)
-		{
-			echo "Error: " . $error->getMessage();
-		}
+		$conn = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
+		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		$stmt = $conn->prepare("INSERT INTO users (username, email, passcode, token, verified) VALUE (:username, :email, :passcode, :token, :verified)");
+		$stmt->bindParam(':username', $username);
+		$stmt->bindParam(':email', $email);
+		$stmt->bindParam(':passcode', $password);
+		$stmt->bindParam(':token', $token);
+		$stmt->bindParam(':verified', $verified);
+		$stmt->execute();
+		echo "Default user inserted successfully<br>";
 	}
-	echo "Default user inserted successfully<br>";
+	catch (PDOException $error)
+	{
+		echo "Error: " . $error->getMessage();
+	}
 
-	// insert 12 images, 1 image per user
+
+	// insert 12 images for the above user
 	for ($i = 1; $i <= 12; $i++)
 	{
-		$userid = $i;
+		$userid = 1;
 		$imagePath = "default" .$i .".png";
 		try
 		{
@@ -147,4 +145,6 @@
 		}
 	}
 	echo "Default images inserted successfully<br>";
+
+	header("Location: ../gallery.php");
 ?>
