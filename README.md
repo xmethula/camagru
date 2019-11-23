@@ -14,3 +14,6 @@ the basic technologies used to program for the web.
 ### Screen Shots:
 #### Gallery
 ![GitHub Logo](/assets/images/app/gallery.png)
+
+#### Comments
+![GitHub Logo](/assets/images/app/comments.png)
