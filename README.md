@@ -13,13 +13,13 @@ the basic technologies used to program for the web.
 
 ### Screen Shots:
 #### Gallery
-![gallery](/assets/images/app/gallery.png | width=48)
+![gallery](/assets/images/app/gallery.png)
 
 #### Profile
-![GitHub Logo](/assets/images/app/profile.png)
+![profile](/assets/images/app/profile.png)
 
 #### Signup
-![GitHub Logo](/assets/images/app/signup.png)
+![signup](/assets/images/app/signup.png)
 
 #### Comments
-![GitHub Logo](/assets/images/app/comments.png)
+![comments](/assets/images/app/comments.png)
