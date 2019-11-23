@@ -12,4 +12,5 @@ the basic technologies used to program for the web.
 * `on your web browers visit localhost:8080/camagru/`
 
 ### Screen Shots:
+#### Gallery
 ![GitHub Logo](/assets/images/app/gallery.png)
