@@ -15,5 +15,11 @@ the basic technologies used to program for the web.
 #### Gallery
 ![GitHub Logo](/assets/images/app/gallery.png)
 
+#### Profile
+![GitHub Logo](/assets/images/app/profile.png)
+
+#### Signup
+![GitHub Logo](/assets/images/app/signup.png)
+
 #### Comments
 ![GitHub Logo](/assets/images/app/comments.png)
