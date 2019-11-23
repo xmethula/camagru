@@ -2,7 +2,7 @@
 Camagru Instagram clone image sharing site created using
 the following web technologies (HTML, CSS, JavaScrip, PHP & MySQL).
 
-### Aim
+### Aim:
 The aim of this project is to learn or improve your skill set on
 the basic technologies used to program for the web.
 
@@ -10,3 +10,7 @@ the basic technologies used to program for the web.
 * `clone/download repo into your local server. (warning: do not rename folder)`
 * `modify the database.php file, set to your own database credentials.`
 * `on your web browers visit localhost:8080/camagru/`
+
+### Screen Shots:
+![GitHub Logo](/assets/images/app/gallery.png)
+Format: ![Alt Text](url)
